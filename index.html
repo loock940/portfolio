@@ -200,9 +200,10 @@
     <div class="lista-projetos">
 
       <article class="projeto">
-        <div class="projeto-midia">
-          <img src="img/iara-poi.jpg" alt="Painel do I.A.R.A. com mapa, navegação e telemetria do veículo." loading="lazy">
-        </div>
+        <button type="button" class="projeto-midia com-logo" data-galeria="gal-iara" aria-haspopup="dialog">
+          <img src="img/iara-logo.png" alt="Logo do projeto I.A.R.A." width="529" height="620">
+          <span class="ver-fotos">Ver as 11 fotos do projeto</span>
+        </button>
         <div class="projeto-texto">
           <p class="meta">2026 · equipe de seis · cliente real</p>
           <h3>I.A.R.A. — telemetria e gestão de frota</h3>
@@ -211,34 +212,51 @@
           <ul class="tags"><li>C++</li><li>Qt 6</li><li>OBD-II</li><li>FlatBuffers</li><li>Python</li><li>AWS</li></ul>
           <a class="link-projeto" href="https://github.com/loock940/obd-app-Interface-em-C" target="_blank" rel="noopener">Ver repositório ↗</a>
         </div>
+
+        <div class="fotos-projeto" id="gal-iara" data-titulo="I.A.R.A. — telemetria e gestão de frota" hidden>
+          <figure><img src="img/iara/painel-no-carro.jpg" alt="Painel do I.A.R.A. instalado no painel do carro, à noite, com chuva no para-brisa."><figcaption>O sistema rodando dentro do veículo, com navegação e telemetria ao vivo.</figcaption></figure>
+          <figure><img src="img/iara/painel.jpg" alt="Painel do I.A.R.A. com velocímetro, marcha, RPM, temperatura e mapa."><figcaption>Painel embarcado em C++ com Qt 6 e QML: velocidade, marcha, RPM, temperatura e rota.</figcaption></figure>
+          <figure><img src="img/iara/painel-poi.jpg" alt="Painel com cartão de ponto de interesse sugerido pela assistente."><figcaption>A assistente de voz sugerindo um ponto de interesse próximo, com distância em linha reta.</figcaption></figure>
+          <figure><img src="img/iara/gestor.jpg" alt="Painel web do gestor com mapa e cartões dos veículos da frota."><figcaption>Fleet Monitor: frota em tempo real, com telemetria e emissão de CO₂ por veículo.</figcaption></figure>
+          <figure><img src="img/iara/rotas.jpg" alt="Tela de planejamento de rotas com 15 endereços e o trajeto otimizado."><figcaption>Planejamento de rotas com 15 endereços reais de São Paulo, resolvido em 96,6 km.</figcaption></figure>
+          <figure><img src="img/iara/configuracoes.jpg" alt="Tela de configurações do sistema."><figcaption>Tela de configurações: modo de simulação, hardware e preferências do motorista.</figcaption></figure>
+          <figure><img src="img/iara/obd-3088rpm.jpg" alt="Leitura OBD-II ao vivo mostrando 3.088 RPM e 62 graus."><figcaption>Validação: leitura a 3.088 RPM comparada com o taquímetro do painel do carro.</figcaption></figure>
+          <figure><img src="img/iara/obd-monitor.jpg" alt="Monitor OBD-II com RPM, velocidade, temperatura, carga e diagnóstico."><figcaption>Monitor OBD-II: RPM, velocidade, temperatura do motor, carga e diagnóstico de falhas.</figcaption></figure>
+          <figure><img src="img/iara/caixa-fusiveis.jpg" alt="Caixa de relés e fusíveis do veículo com os conectores expostos."><figcaption>Estudo da caixa de relés e fusíveis, para decidir de onde tirar os 12 V com segurança.</figcaption></figure>
+          <figure><img src="img/iara/esquematico.jpg" alt="Esquemático elétrico com fonte, conversor, microcontroladores e leitor RFID."><figcaption>Esquemático da alimentação e dos módulos, desenhado antes de ir para a protoboard.</figcaption></figure>
+          <figure><img src="img/iara/pecas-3d.jpg" alt="Peças impressas em 3D sobre a bancada, para fixação dos módulos."><figcaption>Peças impressas em 3D para fixar o conjunto dentro do veículo.</figcaption></figure>
+        </div>
       </article>
 
       <article class="projeto">
-        <div class="projeto-midia sem-foto">
-          <span><b>Microcontrolador</b> · ESP32 em ESP-IDF</span>
-          <span><b>Barramento</b> · CAN com SN65HVD230</span>
-          <span><b>Alimentação</b> · 12 V com diodo e TVS 24 V</span>
-          <span><b>Saída</b> · 20 bytes por segundo via BLE</span>
+        <div class="projeto-midia com-logo" role="img" aria-label="Logo do projeto I.A.R.A.">
+          <img src="img/iara-logo.png" alt="" width="529" height="620">
+          <span class="ver-fotos">ESP32-S3 · mesma família do I.A.R.A.</span>
         </div>
         <div class="projeto-texto">
           <p class="meta">2026 · firmware automotivo</p>
           <h3>IARA Lite — leitura do carro por CAN</h3>
-          <p>A versão de baixo custo do dispositivo: um ESP32 ligado na tomada de diagnóstico lê o motor pelo barramento CAN, entrega os dados ao celular do motorista por Bluetooth e dorme quando o carro desliga. Os dois terras do conector ficam separados e se encontram em estrela no transceiver, para o chaveamento da fonte não sujar o barramento.</p>
+          <p>A versão de baixo custo do dispositivo, da mesma família do I.A.R.A.: um <strong>ESP32-S3</strong> ligado na tomada de diagnóstico lê o motor pelo barramento CAN, entrega os dados ao celular do motorista por Bluetooth e dorme quando o carro desliga. Os dois terras do conector ficam separados e se encontram em estrela no transceiver, para o chaveamento da fonte não sujar o barramento.</p>
           <p class="papel"><b>Meu papel:</b> do conector em diante — alimentação, proteções, firmware, painel de LEDs e a bancada de teste com um segundo ESP32 simulando a central do carro.</p>
-          <ul class="tags"><li>ESP32</li><li>ESP-IDF</li><li>C</li><li>CAN</li><li>BLE</li><li>GPS</li></ul>
+          <ul class="tags"><li>ESP32-S3</li><li>ESP-IDF</li><li>C</li><li>CAN</li><li>BLE</li><li>GPS</li></ul>
         </div>
       </article>
 
       <article class="projeto">
-        <div class="projeto-midia">
+        <button type="button" class="projeto-midia com-foto" data-galeria="gal-tsp" aria-haspopup="dialog">
           <img src="img/tsp-rotas.jpg" alt="Tela de planejamento de rotas com 15 endereços e o trajeto otimizado no mapa de São Paulo." loading="lazy">
-        </div>
+          <span class="ver-fotos">Ver em tamanho grande</span>
+        </button>
         <div class="projeto-texto">
           <p class="meta">2026 · otimização de rotas</p>
           <h3>FleetTSP — roteirizador de entregas</h3>
           <p>Resolve o problema do caixeiro-viajante para uma lista de endereços, com dois motores: vizinho mais próximo com refinamento 2-opt rodando no navegador, sem servidor, e Google OR-Tools com busca local guiada no backend. As distâncias são rodoviárias reais, pelo OSRM. Num teste com 15 endereços de São Paulo, fechou 96,6 km.</p>
           <ul class="tags"><li>Python</li><li>Flask</li><li>OR-Tools</li><li>OSRM</li><li>Leaflet</li></ul>
           <a class="link-projeto" href="https://github.com/loock940/Problema-do-Caixeiro-Viajante" target="_blank" rel="noopener">Ver repositório ↗</a>
+        </div>
+
+        <div class="fotos-projeto" id="gal-tsp" data-titulo="FleetTSP — roteirizador de entregas" hidden>
+          <figure><img src="img/iara/rotas.jpg" alt="Planejamento de rotas com 15 endereços importados e o trajeto otimizado no mapa."><figcaption>15 endereços reais de São Paulo, com a base e a ordem de visita resolvidas em 96,6 km.</figcaption></figure>
         </div>
       </article>
 
@@ -259,15 +277,21 @@
       </article>
 
       <article class="projeto">
-        <div class="projeto-midia">
+        <button type="button" class="projeto-midia com-foto" data-galeria="gal-assistiva" aria-haspopup="dialog">
           <img src="img/simposio-1.jpg" alt="Apresentação do dispositivo de tecnologia assistiva no simpósio." loading="lazy">
-        </div>
+          <span class="ver-fotos">Ver fotos</span>
+        </button>
         <div class="projeto-texto">
           <p class="meta">dez/2025 · Senac e UNIFESP</p>
           <h3>Tecnologia assistiva para detecção de obstáculos</h3>
           <p>Dispositivo personalizável que detecta obstáculos por sensor a laser e responde ao usuário por retorno tátil, voltado a pessoas com deficiência visual. Projeto idealizado e coordenado por André Coutinho, apresentado no 1º Simpósio de Diversidades em Expressão.</p>
           <p class="papel"><b>Meu papel:</b> parte elétrica — dimensionamento, desenvolvimento do circuito, montagem e soldagem de todos os componentes. Apresentei o projeto no simpósio.</p>
           <ul class="tags"><li>Sensor a laser</li><li>Eletrônica</li><li>Soldagem</li><li>Prototipagem</li></ul>
+        </div>
+
+        <div class="fotos-projeto" id="gal-assistiva" data-titulo="Tecnologia assistiva — 1º Simpósio de Diversidades em Expressão" hidden>
+          <figure><img src="img/simposio-1.jpg" alt="Apresentação do projeto no simpósio, com o slide do dispositivo ao fundo."><figcaption>Apresentação no 1º Simpósio de Diversidades em Expressão, dezembro de 2025.</figcaption></figure>
+          <figure><img src="img/simposio-2.jpg" alt="Explicação do funcionamento do dispositivo durante a apresentação."><figcaption>Explicando o funcionamento do dispositivo de detecção de obstáculos.</figcaption></figure>
         </div>
       </article>
 
@@ -427,7 +451,104 @@
   </div>
 </footer>
 
+<!-- ============================ GALERIA DE FOTOS ============================ -->
+<dialog class="lightbox" id="lightbox" aria-label="Fotos do projeto">
+  <div class="moldura">
+    <div class="topo">
+      <strong id="lb-titulo"></strong>
+      <div class="navegacao">
+        <button type="button" id="lb-anterior" aria-label="Foto anterior">‹</button>
+        <button type="button" id="lb-proxima" aria-label="Próxima foto">›</button>
+        <button type="button" class="fechar" id="lb-fechar" aria-label="Fechar">✕</button>
+      </div>
+    </div>
+    <div class="palco"><img id="lb-foto" alt=""></div>
+    <p class="legenda" id="lb-legenda"></p>
+    <div class="miniaturas" id="lb-miniaturas"></div>
+  </div>
+</dialog>
+
 <script>
+  // Galeria: cada projeto com fotos tem um bloco .fotos-projeto escondido.
+  (function () {
+    var dialogo = document.getElementById('lightbox');
+    if (!dialogo || typeof dialogo.showModal !== 'function') return;
+
+    var elFoto = document.getElementById('lb-foto');
+    var elLegenda = document.getElementById('lb-legenda');
+    var elTitulo = document.getElementById('lb-titulo');
+    var elMinis = document.getElementById('lb-miniaturas');
+    var fotos = [];
+    var atual = 0;
+    var origem = null;
+
+    function mostrar(i) {
+      if (!fotos.length) return;
+      atual = (i + fotos.length) % fotos.length;
+      var f = fotos[atual];
+      elFoto.src = f.src;
+      elFoto.alt = f.alt;
+      elLegenda.textContent = f.legenda;
+      [].forEach.call(elMinis.children, function (b, n) {
+        b.setAttribute('aria-current', n === atual ? 'true' : 'false');
+      });
+      var ativa = elMinis.children[atual];
+      if (ativa && ativa.scrollIntoView) ativa.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+
+    function abrir(id, gatilho) {
+      var bloco = document.getElementById(id);
+      if (!bloco) return;
+      origem = gatilho || null;
+      elTitulo.textContent = bloco.getAttribute('data-titulo') || 'Fotos do projeto';
+      fotos = [].map.call(bloco.querySelectorAll('figure'), function (fig) {
+        var img = fig.querySelector('img');
+        var cap = fig.querySelector('figcaption');
+        return { src: img.getAttribute('src'), alt: img.getAttribute('alt') || '', legenda: cap ? cap.textContent : '' };
+      });
+
+      elMinis.innerHTML = '';
+      fotos.forEach(function (f, n) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Foto ' + (n + 1));
+        var mini = document.createElement('img');
+        mini.src = f.src;
+        mini.alt = '';
+        b.appendChild(mini);
+        b.addEventListener('click', function () { mostrar(n); });
+        elMinis.appendChild(b);
+      });
+      elMinis.hidden = fotos.length < 2;
+      document.getElementById('lb-anterior').hidden = fotos.length < 2;
+      document.getElementById('lb-proxima').hidden = fotos.length < 2;
+
+      mostrar(0);
+      dialogo.showModal();
+    }
+
+    document.querySelectorAll('[data-galeria]').forEach(function (botao) {
+      botao.addEventListener('click', function () { abrir(botao.getAttribute('data-galeria'), botao); });
+    });
+
+    document.getElementById('lb-anterior').addEventListener('click', function () { mostrar(atual - 1); });
+    document.getElementById('lb-proxima').addEventListener('click', function () { mostrar(atual + 1); });
+    document.getElementById('lb-fechar').addEventListener('click', function () { dialogo.close(); });
+
+    dialogo.addEventListener('click', function (e) {
+      if (e.target === dialogo) dialogo.close();   // clique fora da moldura fecha
+    });
+    dialogo.addEventListener('close', function () {
+      elFoto.removeAttribute('src');
+      if (origem && origem.focus) origem.focus();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!dialogo.open) return;
+      if (e.key === 'ArrowRight') mostrar(atual + 1);
+      if (e.key === 'ArrowLeft') mostrar(atual - 1);
+    });
+  })();
+
   // O formulário não tem servidor: monta o e-mail e abre o programa de e-mail do visitante.
   document.getElementById('form-contato').addEventListener('submit', function (e) {
     e.preventDefault();
