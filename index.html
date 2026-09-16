@@ -185,7 +185,7 @@
       </div>
       <div>
         <dt>Software e ferramentas</dt>
-        <ul><li>Qt 6</li><li>Flask</li><li>Socket.IO</li><li>React</li><li>AWS</li><li>NumPy</li><li>Pandas</li><li class="forte">Git</li><li>Linux</li><li>VS Code</li></ul>
+        <ul><li>Qt 6</li><li>FFmpeg</li><li>SDL2</li><li>OpenGL</li><li>Dear ImGui</li><li>OpenCV</li><li>CMake</li><li>Flask</li><li>Socket.IO</li><li>React</li><li>AWS</li><li>NumPy</li><li>Pandas</li><li class="forte">Git</li><li>Linux</li></ul>
       </div>
     </dl>
   </div>
@@ -377,17 +377,17 @@
       </article>
 
       <article class="projeto">
-        <div class="projeto-midia sem-foto">
-          <span><b>Origem</b> · um notebook velho parado</span>
-          <span><b>Programa</b> · escrito em C</span>
-          <span><b>Fonte</b> · imagens do DVR das câmeras</span>
-          <span><b>Resultado</b> · acompanhamento sem equipamento novo</span>
+        <div class="projeto-midia com-logo" role="img" aria-label="Logo do IARA Cam">
+          <img src="img/iaracam-logo.png" alt="" width="482" height="459">
+          <span class="ver-fotos">IARA Cam · inteligência, monitoramento e segurança</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">projeto pessoal · em casa</p>
-          <h3>Câmeras de casa em um notebook antigo</h3>
-          <p>Tinha um notebook sem uso e queria acompanhar as câmeras de casa com mais facilidade. Escrevi um programa em C que pega as imagens do DVR e as transmite, para eu ver por esse notebook. Resolveu o problema sem comprar nada e devolveu função a uma máquina que ia para o lixo.</p>
-          <ul class="tags"><li>C</li><li>DVR</li><li>Vídeo</li><li>Linux</li></ul>
+          <p class="meta">projeto pessoal · 2026</p>
+          <h3>IARA Cam (DVR Vision) — visualizador nativo de câmeras</h3>
+          <p>Começou com um notebook antigo parado e a vontade de ver as câmeras de casa sem depender do aplicativo do DVR. A primeira versão era em Python, automatizando o navegador com Playwright e o player mpv. Refiz tudo em <strong>C++20 nativo</strong>: cada câmera roda em sua própria thread, puxa o fluxo <strong>RTSP sobre TCP com FFmpeg</strong> (avformat, avcodec e swscale) e deposita o quadro convertido numa caixa de correio; a thread de renderização consome sempre o quadro mais recente e monta a grade na GPU, com a conversão YUV→RGB feita no shader, usando <strong>SDL2, OpenGL e Dear ImGui</strong>.</p>
+          <p>Se uma câmera cai, só ela reconecta, com espera exponencial — as outras nem percebem. O programa varre o DVR e detecta os canais sozinho, funciona com Dahua/Intelbras e XMeye/Sofia por template de URL, guarda a configuração em JSON com escrita atômica e roda em <strong>modo quiosque num mini-PC com Alpine Linux</strong>, sem ambiente gráfico. Tem ainda detecção de objetos com YOLO pelo OpenCV, que pode ser desligada na compilação para gerar um binário enxuto. O código segue as regras <strong>Power of 10, da NASA/JPL</strong>.</p>
+          <p class="papel"><b>Do zero ao fim:</b> arquitetura, código, build com CMake e empacotamento para Alpine (OpenRC), Debian (systemd) e Windows (MSYS2).</p>
+          <ul class="tags"><li>C++20</li><li>FFmpeg</li><li>SDL2</li><li>OpenGL</li><li>Dear ImGui</li><li>RTSP</li><li>OpenCV / YOLO</li><li>CMake</li><li>Alpine Linux</li><li>Python (versão antiga)</li></ul>
         </div>
       </article>
 
