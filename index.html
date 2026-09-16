@@ -205,10 +205,20 @@
           <span class="ver-fotos">Ver as 11 fotos do projeto</span>
         </button>
         <div class="projeto-texto">
-          <p class="meta">2026 · equipe de seis · cliente real</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>2026 · equipe de seis · cliente real</span></p>
           <h3>I.A.R.A. — telemetria e gestão de frota</h3>
-          <p>Um dono de frota em São Paulo sabia onde os carros estavam, mas não conseguia provar nada depois. O sistema lê o veículo pela OBD-II, registra o trajeto, valida a nota de combustível pelo QR Code e entrega mapa e relatório ao gestor. Reescrevemos a interface do carro em C++ e a latência de voz caiu de 400 ms para 30 ms.</p>
-          <p class="papel"><b>Meu papel:</b> arquitetura e base de código, camada embarcada no veículo e leitura OBD-II.</p>
+          <p>Um dono de frota de veículos leves em São Paulo sabia onde os carros estavam, porque tinha rastreador e tag de pedágio, mas não conseguia provar nada depois: sem histórico de trajeto, notas de combustível chegando por foto no WhatsApp e nenhuma resposta quando o cliente perguntava sobre emissão de CO₂. O problema não era falta de tecnologia, era falta de registro.</p>
+          <p>São três subsistemas. <strong>No veículo</strong>, um Raspberry Pi 5 preso ao painel lê a central eletrônica por <strong>OBD-II com adaptador ELM327</strong>, coletando RPM, velocidade, temperatura e carga do motor; os dados saem do coletor em Python e chegam à interface em C++ por <strong>FlatBuffers sobre TCP local</strong>, sem cópia. <strong>Na nuvem</strong>, backend em Python com Flask e Socket.IO na AWS, com EC2 e DynamoDB, alimentando o painel do gestor em React com mapa ao vivo e relatório em PDF de trajeto, custo, eficiência e emissão. <strong>No celular</strong>, o motorista aponta para o QR Code da nota fiscal ao abastecer, o app confere se ela é legítima e arquiva com a foto — o WhatsApp sai do fluxo.</p>
+          <p>A parte que mais me ensinou foi a assistente de voz. Ela roda atrás de um <strong>proxy próprio</strong> que isola a chave da API e injeta o estado atual do veículo antes de cada pergunta, então ela sabe o RPM, a temperatura e as falhas ativas na hora em que o motorista fala. Também aceita comandos que disparam ferramentas no proxy, como alternar entre o hardware real e o simulador de bancada. O mapa é MapLibre, com geocodificação reversa pelo Overpass para descobrir rua e limite de velocidade, e clima pelo Open-Meteo.</p>
+          <p class="papel"><b>Meu papel:</b> arquitetura do sistema e estruturação da base de código, camada embarcada no veículo e leitura OBD-II, com a definição do escopo técnico junto à equipe de seis pessoas.</p>
+          <ul class="num">
+            <li><span class="k">Latência de voz, depois da reescrita em C++</span><span class="v">400 → 30 ms</span></li>
+            <li><span class="k">Memória residente</span><span class="v">1 GB → 200 MB</span></li>
+            <li><span class="k">Quadro de telemetria</span><span class="v">320 → 96 bytes</span></li>
+            <li><span class="k">Dois meses em operação</span><span class="v">91.825 viagens</span></li>
+            <li><span class="k">Pontos de telemetria guardados</span><span class="v">44.207</span></li>
+          </ul>
+          <p>A validação foi feita em dois veículos, com quatro amostras a cerca de 3.000 RPM comparadas ao taquímetro do painel. O caso que não funcionou também entrou no relatório: um carro anterior à normatização brasileira, com incompatibilidade de protocolo.</p>
           <ul class="tags"><li>C++</li><li>Qt 6</li><li>OBD-II</li><li>FlatBuffers</li><li>Python</li><li>AWS</li></ul>
           <a class="link-projeto" href="https://github.com/loock940/obd-app-Interface-em-C" target="_blank" rel="noopener">Ver repositório ↗</a>
         </div>
@@ -234,7 +244,7 @@
           <span class="ver-fotos">ESP32-S3 · mesma família do I.A.R.A.</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">2026 · firmware automotivo</p>
+          <p class="meta"><span class="status andamento">Em andamento</span><span>2026 · firmware automotivo</span></p>
           <h3>IARA Lite — leitura do carro por CAN</h3>
           <p>A versão de baixo custo do dispositivo, da mesma família do I.A.R.A.: um <strong>ESP32-S3</strong> ligado na tomada de diagnóstico lê o motor pelo barramento CAN, entrega os dados ao celular do motorista por Bluetooth e dorme quando o carro desliga. Os dois terras do conector ficam separados e se encontram em estrela no transceiver, para o chaveamento da fonte não sujar o barramento.</p>
           <p class="papel"><b>Meu papel:</b> do conector em diante — alimentação, proteções, firmware, painel de LEDs e a bancada de teste com um segundo ESP32 simulando a central do carro.</p>
@@ -248,9 +258,10 @@
           <span class="ver-fotos">Ver em tamanho grande</span>
         </button>
         <div class="projeto-texto">
-          <p class="meta">2026 · otimização de rotas</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>2026 · otimização de rotas</span></p>
           <h3>FleetTSP — roteirizador de entregas</h3>
-          <p>Resolve o problema do caixeiro-viajante para uma lista de endereços, com dois motores: vizinho mais próximo com refinamento 2-opt rodando no navegador, sem servidor, e Google OR-Tools com busca local guiada no backend. As distâncias são rodoviárias reais, pelo OSRM. Num teste com 15 endereços de São Paulo, fechou 96,6 km.</p>
+          <p>Resolve o problema do caixeiro-viajante para uma lista de endereços, com dois motores. No navegador roda vizinho mais próximo com refinamento 2-opt, o que faz a ferramenta funcionar inteira sem servidor nenhum; no backend em Flask, o Google OR-Tools resolve com estratégia de arco mais barato e busca local guiada, com teto de cinco segundos para nunca travar a tela. As distâncias não são em linha reta: vêm do OSRM, como rota rodoviária real.</p>
+          <p>Os endereços entram por CSV ou digitados, passam por geocodificação com cache — para não repetir consulta do mesmo endereço — e o resultado aparece num mapa Leaflet, com a base marcada e a ordem de visita numerada. Num teste com 15 endereços reais de São Paulo, a rota fechou em 96,6 km e cerca de 161 minutos. O solver tem teste automatizado próprio.</p>
           <ul class="tags"><li>Python</li><li>Flask</li><li>OR-Tools</li><li>OSRM</li><li>Leaflet</li></ul>
           <a class="link-projeto" href="https://github.com/loock940/Problema-do-Caixeiro-Viajante" target="_blank" rel="noopener">Ver repositório ↗</a>
         </div>
@@ -268,7 +279,7 @@
           <span><b>Interface</b> · histograma e espectro em WinForms</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">2026 · processamento de sinais</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>2026 · processamento de sinais</span></p>
           <h3>Embaralhamento de fase por FFT</h3>
           <p>Cifra de imagem no domínio da frequência: o espectro é decomposto em módulo e fase, a fase recebe um deslocamento derivado da senha e a imagem é recomposta. Quem tem a senha reconstrói a fase original; quem não tem fica com ruído. Inclui avaliador de integridade para medir o quanto a imagem recuperada bate com a original.</p>
           <ul class="tags"><li>C#</li><li>.NET</li><li>FFT</li><li>Criptografia</li><li>WinForms</li></ul>
@@ -282,7 +293,7 @@
           <span class="ver-fotos">Ver fotos</span>
         </button>
         <div class="projeto-texto">
-          <p class="meta">dez/2025 · Senac e UNIFESP</p>
+          <p class="meta"><span class="status andamento">Em andamento</span><span>dez/2025 · Senac e UNIFESP</span></p>
           <h3>Tecnologia assistiva para detecção de obstáculos</h3>
           <p>Dispositivo personalizável que detecta obstáculos por sensor a laser e responde ao usuário por retorno tátil, voltado a pessoas com deficiência visual. Projeto idealizado e coordenado por André Coutinho, apresentado no 1º Simpósio de Diversidades em Expressão.</p>
           <p class="papel"><b>Meu papel:</b> parte elétrica — dimensionamento, desenvolvimento do circuito, montagem e soldagem de todos os componentes. Apresentei o projeto no simpósio.</p>
@@ -303,9 +314,10 @@
           <span><b>Documentação</b> · Wokwi, esquemático e PCB no Flux.ai</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">2025 · firmware e rádio</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>2025 · firmware e rádio</span></p>
           <h3>CriptoLuz — comunicação por três canais</h3>
           <p>Duas placas trocando mensagens por três caminhos físicos independentes, com o conteúdo embaralhado antes de sair pelo ar. O firmware é em C/C++ sobre o Pico SDK, acessando direto os periféricos do RP2040 e controlando rádio e display por SPI. Cada ponta tem display ST7789 e bateria LiPo para operar longe da tomada.</p>
+          <p>Os três canais têm naturezas diferentes de propósito: o infravermelho exige linha de visada, o rádio NRF24L01 atravessa obstáculo mas é limitado em alcance, e o Wi-Fi depende de rede. Sobre todos eles roda a mesma camada de cifra, baseada em FFT aplicada ao sinal. O projeto foi validado primeiro no Wokwi, depois na bancada, canal por canal e depois em conjunto, e fechado com esquemático elétrico, relatório científico e projeto de PCB no Flux.ai.</p>
           <ul class="tags"><li>C/C++</li><li>Pico SDK</li><li>RP2040</li><li>NRF24L01</li><li>SPI</li><li>ST7789</li></ul>
         </div>
       </article>
@@ -318,7 +330,7 @@
           <span><b>Tela</b> · do desktop ao celular em tela cheia</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">2025 · ESP32 e front-end</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>2025 · ESP32 e front-end</span></p>
           <h3>Controle de videogame servido pelo ESP32</h3>
           <p>Gamepad virtual em um único arquivo HTML, servido offline pelo próprio ESP32, sem depender de internet e sem biblioteca externa. O layout se adapta da tela do computador ao celular, com feedback visual no toque de cada botão.</p>
           <ul class="tags"><li>ESP32</li><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
@@ -332,9 +344,10 @@
           <span class="ver-fotos">Ver fotos</span>
         </button>
         <div class="projeto-texto">
-          <p class="meta">2025 · competição de robótica · 2º lugar</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>2025 · competição de robótica · 2º lugar</span></p>
           <h3>RoboCar-Mini — veículo autônomo</h3>
           <p>Carrinho que atravessa a pista sozinho: dois sensores ultrassônicos comparam a distância de cada lado, o servo varre o ambiente e o carro vira para onde há espaço, parando quando não há saída. O ajuste que fez diferença foi calibrar o PWM diferente em cada motor, para compensar a diferença mecânica entre as rodas. Ficamos em <strong>segundo lugar na categoria Júnior do RoboCar Race</strong>, com a equipe Picaretas Productions.</p>
+          <p>O laço principal é simples de propósito: a cada volta ele lê os dois sensores com a biblioteca NewPing, limitada a 100 cm de alcance útil, e decide por comparação. Acima de 20 cm dos dois lados, segue; um lado bloqueado, curva de 90° para o outro; os dois bloqueados, para. Enquanto isso o servo continua varrendo de 30° a 90° em passos de 10°, invertendo o sentido nos limites, e as distâncias saem pela serial para depurar o comportamento fora da bancada.</p>
           <p class="papel"><b>Meu papel:</b> equipe de cinco. Montagem, programação em C++ e ajuste dos limiares e velocidades nos testes de pista.</p>
           <ul class="tags"><li>Arduino</li><li>C++</li><li>HC-SR04</li><li>Servo</li><li>PWM</li></ul>
           <a class="link-projeto" href="https://github.com/loock940/RoboCar-Mini" target="_blank" rel="noopener">Ver repositório ↗</a>
@@ -354,7 +367,7 @@
           <span><b>Contexto</b> · pesquisa orientada por professor</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">1º sem/2025 · iniciação científica</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>1º sem/2025 · iniciação científica</span></p>
           <h3>Mamografias com aprendizado de máquina</h3>
           <p>Implementei o modelo que identifica tumores em exames de mamografia e aponta a região suspeita na imagem. A pesquisa, orientada por professor, ficava na linha de computação quântica: eu cuidei da abordagem clássica de aprendizado de máquina, enquanto outro integrante desenvolveu a versão quântica.</p>
           <ul class="tags"><li>Python</li><li>Aprendizado de máquina</li><li>Visão computacional</li></ul>
@@ -369,9 +382,10 @@
           <span><b>Data</b> · 14 de junho de 2025</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">jun/2025 · física aplicada</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>jun/2025 · física aplicada</span></p>
           <h3>Foguete experimental "Santos Dumont"</h3>
-          <p>Projeto interdisciplinar com Engenharia de Produção: construímos o foguete, projetamos a base de lançamento remoto acionada por celular e fizemos o lançamento em campo. Um exercício de física aplicada que virou também exercício de eletrônica, por causa do acionamento à distância.</p>
+          <p>Projeto interdisciplinar com Engenharia de Produção, lançado em 14 de junho de 2025. O corpo é de MDF e papel e a propulsão vem de uma garrafa PET pressurizada com água — quanto mais pressão na câmara, mais empuxo no momento da soltura. A parte que coube à eletrônica foi a <strong>base de lançamento remota</strong>: o gatilho é acionado pelo celular, à distância, para ninguém precisar ficar ao lado do foguete pressurizado na hora do disparo.</p>
+          <p>É um exercício de física aplicada que vira exercício de engenharia na prática: dimensionar a estrutura para aguentar o empuxo sem passar do peso, prever a trajetória e projetar um acionamento que não falhe no único instante em que ele importa.</p>
           <ul class="tags"><li>Prototipagem</li><li>Acionamento remoto</li><li>Física aplicada</li></ul>
         </div>
       </article>
@@ -382,7 +396,7 @@
           <span class="ver-fotos">IARA Cam · inteligência, monitoramento e segurança</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">projeto pessoal · 2026</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>projeto pessoal · 2026</span></p>
           <h3>IARA Cam (DVR Vision) — visualizador nativo de câmeras</h3>
           <p>Começou com um notebook antigo parado e a vontade de ver as câmeras de casa sem depender do aplicativo do DVR. A primeira versão era em Python, automatizando o navegador com Playwright e o player mpv. Refiz tudo em <strong>C++20 nativo</strong>: cada câmera roda em sua própria thread, puxa o fluxo <strong>RTSP sobre TCP com FFmpeg</strong> (avformat, avcodec e swscale) e deposita o quadro convertido numa caixa de correio; a thread de renderização consome sempre o quadro mais recente e monta a grade na GPU, com a conversão YUV→RGB feita no shader, usando <strong>SDL2, OpenGL e Dear ImGui</strong>.</p>
           <p>Se uma câmera cai, só ela reconecta, com espera exponencial — as outras nem percebem. O programa varre o DVR e detecta os canais sozinho, funciona com Dahua/Intelbras e XMeye/Sofia por template de URL, guarda a configuração em JSON com escrita atômica e roda em <strong>modo quiosque num mini-PC com Alpine Linux</strong>, sem ambiente gráfico. Tem ainda detecção de objetos com YOLO pelo OpenCV, que pode ser desligada na compilação para gerar um binário enxuto. O código segue as regras <strong>Power of 10, da NASA/JPL</strong>.</p>
@@ -399,7 +413,7 @@
           <span><b>Entrega</b> · relatório técnico do experimento</span>
         </div>
         <div class="projeto-texto">
-          <p class="meta">2025 · Python e física aplicada</p>
+          <p class="meta"><span class="status concluido">Concluído</span><span>2025 · Python e física aplicada</span></p>
           <h3>Volume de esferas com propagação de incerteza</h3>
           <p>Medição com paquímetro para determinar diâmetro e volume de esferas, com cálculo da incerteza experimental e sua propagação. A análise foi automatizada em Python, organizando os resultados e gerando o relatório do experimento.</p>
           <ul class="tags"><li>Python</li><li>NumPy</li><li>Pandas</li></ul>
