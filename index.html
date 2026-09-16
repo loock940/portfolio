@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Portfólio técnico de Gabriel da Silva Martins — eletrônica, sistemas embarcados, firmware em C/C++ para ESP32, Arduino e Raspberry Pi Pico.">
+<meta name="author" content="Gabriel da Silva Martins">
+<meta property="og:title" content="Gabriel da Silva Martins — Eletrônica e sistemas embarcados">
+<meta property="og:description" content="Firmware em C/C++ para ESP32, Arduino e Raspberry Pi Pico. CAN, OBD-II, BLE e robótica, com projetos medidos e documentados.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0E6E78">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html{color-scheme:light dark}
+  body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<title>Bancada de Gabriel Martins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+</head>
+<body>
+<style>
+  :root{
+    --ground:#F0F3F2;--surface:#FFFFFF;--sunken:#E8EDEB;--veil:rgba(240,243,242,.78);
+    --ink:#121A1E;--ink-soft:#4B585E;--line:#D3DAD8;--line-soft:#E3E8E6;
+    --accent:#0E6E78;--accent-wash:rgba(14,110,120,.09);
+    --signal:#A8620F;--signal-wash:rgba(168,98,15,.10);
+    --shadow:0 1px 2px rgba(18,26,30,.04), 0 8px 24px -16px rgba(18,26,30,.18);
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ease-out:cubic-bezier(.23,1,.32,1);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0C1215;--surface:#121B1F;--sunken:#0F171B;--veil:rgba(12,18,21,.78);
+      --ink:#E6ECEA;--ink-soft:#9AA8AD;--line:#233036;--line-soft:#1A252A;
+      --accent:#54C3CD;--accent-wash:rgba(84,195,205,.12);
+      --signal:#E0A153;--signal-wash:rgba(224,161,83,.13);
+      --shadow:0 1px 2px rgba(0,0,0,.30), 0 10px 28px -18px rgba(0,0,0,.65);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0C1215;--surface:#121B1F;--sunken:#0F171B;--veil:rgba(12,18,21,.78);
+    --ink:#E6ECEA;--ink-soft:#9AA8AD;--line:#233036;--line-soft:#1A252A;
+    --accent:#54C3CD;--accent-wash:rgba(84,195,205,.12);
+    --signal:#E0A153;--signal-wash:rgba(224,161,83,.13);
+    --shadow:0 1px 2px rgba(0,0,0,.30), 0 10px 28px -18px rgba(0,0,0,.65);
+  }
+
+  body{
+    background:var(--ground);color:var(--ink);font-family:var(--body);font-optical-sizing:auto;
+    font-size:17px;line-height:1.62;
+    padding-inline:clamp(16px,5vw,40px);padding-block:0 clamp(40px,7vw,72px);
+  }
+  .sheet{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,6vw,68px);}
+  a{color:var(--accent);text-underline-offset:3px;transition:color 140ms ease;}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+
+  .topbar{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
+    margin-inline:calc(clamp(16px,5vw,40px) * -1);
+    padding:10px clamp(16px,5vw,40px);padding-top:calc(10px + env(safe-area-inset-top,0px));
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    background:var(--veil);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);
+    border-bottom:1px solid color-mix(in srgb, var(--line) 60%, transparent);
+    font-family:var(--mono);font-size:12.5px;
+  }
+  .topbar .who{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .topbar .who span{color:var(--ink-soft);}
+  @media (max-width:520px){.topbar .who span{display:none;}}
+  .topbar .cta{color:var(--accent);text-decoration:none;white-space:nowrap;padding:5px 10px;
+    border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);border-radius:3px;
+    transition:transform 140ms var(--ease-out), background-color 140ms ease, border-color 140ms ease;}
+  .topbar .cta:active{transform:scale(.97);}
+  @media (hover:hover) and (pointer:fine){.topbar .cta:hover{background:var(--accent-wash);border-color:var(--accent);}}
+
+  header{padding-top:clamp(28px,6vw,56px);}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0;}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,7vw,58px);line-height:1.02;letter-spacing:-.025em;margin:12px 0 0;text-wrap:balance;}
+  .role{font-family:var(--display);font-weight:500;font-size:clamp(16px,2.4vw,19px);color:var(--accent);margin:12px 0 0;}
+  .pitch{max-width:62ch;margin:18px 0 0;color:var(--ink-soft);}
+  .pitch strong{color:var(--ink);font-weight:600;}
+  .contacts{list-style:none;padding:0;margin:22px 0 0;display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:13px;}
+  .contacts a,.contacts span{display:inline-block;padding:8px 13px;border:1px solid var(--line);border-radius:3px;
+    background:var(--surface);color:var(--ink);text-decoration:none;
+    transition:transform 150ms var(--ease-out), border-color 150ms ease, color 150ms ease;}
+  .contacts a:active{transform:scale(.97);}
+  @media (hover:hover) and (pointer:fine){.contacts a:hover{border-color:var(--accent);color:var(--accent);}}
+
+  .hero{margin-top:30px;border:1px solid var(--line);border-radius:3px;overflow:hidden;box-shadow:var(--shadow);background:var(--sunken);}
+  .hero img{display:block;width:100%;height:auto;}
+  .hero figcaption{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);padding:12px 16px;background:var(--surface);border-top:1px solid var(--line-soft);}
+
+  .quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden;box-shadow:var(--shadow);}
+  .quick div{background:var(--surface);padding:18px;}
+  .quick dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
+  .quick dd{margin:8px 0 0;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.32;letter-spacing:-.01em;}
+  .quick dd span{display:block;font-family:var(--body);font-weight:400;font-size:14.5px;color:var(--ink-soft);margin-top:5px;line-height:1.5;letter-spacing:0;}
+
+  section > h2{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+  section > h2 + .lede{margin:0 0 26px;color:var(--ink-soft);font-size:15.5px;max-width:60ch;}
+
+  .cases{display:flex;flex-direction:column;gap:clamp(32px,5vw,48px);}
+  .case{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);overflow:hidden;}
+  .case > .head{padding:24px clamp(18px,3vw,28px) 0;}
+  .case .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0;}
+  .case h3{font-family:var(--display);font-weight:700;font-size:clamp(20px,3vw,25px);letter-spacing:-.02em;margin:9px 0 0;text-wrap:balance;}
+  .case .oneline{margin:10px 0 0;color:var(--ink-soft);max-width:62ch;}
+
+  .shots{display:grid;gap:1px;background:var(--line-soft);margin-top:22px;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+  @media (min-width:660px){.shots.two{grid-template-columns:1fr 1fr;}}
+  .shots figure{margin:0;background:var(--sunken);display:flex;flex-direction:column;}
+  .shots img{display:block;width:100%;height:auto;}
+  .shots figcaption{font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--ink-soft);padding:10px 14px;background:var(--surface);}
+
+  .diagram{margin:0;background:var(--sunken);border-bottom:1px solid var(--line-soft);overflow-x:auto;}
+  .diagram svg{display:block;min-width:560px;width:100%;height:auto;}
+  .diagram figcaption{font-family:var(--mono);font-size:11px;color:var(--ink-soft);padding:0 clamp(18px,3vw,28px) 14px;min-width:560px;}
+
+  .blocks{display:grid;gap:0;}
+  @media (min-width:720px){.blocks{grid-template-columns:1fr 1fr;}}
+  .block{padding:22px clamp(18px,3vw,28px);border-top:1px solid var(--line-soft);}
+  @media (min-width:720px){.block:nth-child(odd){border-right:1px solid var(--line-soft);}}
+  .block h4{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 9px;}
+  .block p{margin:0;font-size:16px;max-width:52ch;}
+  .block ul{margin:0;padding-left:1.05em;font-size:16px;max-width:52ch;}
+  .block li{margin:5px 0;}
+  .block.result{background:var(--signal-wash);}
+  .block.result h4{color:var(--signal);}
+
+  .metrics{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px;}
+  .metrics li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-family:var(--mono);font-size:13px;}
+  .metrics .what{color:var(--ink-soft);min-width:130px;}
+  .metrics .from{color:var(--ink-soft);text-decoration:line-through;}
+  .metrics .to{color:var(--signal);font-weight:500;}
+
+  .foot{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between;padding:16px clamp(18px,3vw,28px);border-top:1px solid var(--line-soft);}
+  .tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:0;}
+  .tags li{font-family:var(--mono);font-size:11.5px;padding:4px 8px;background:var(--accent-wash);color:var(--accent);border-radius:3px;}
+  .repo{font-family:var(--mono);font-size:12px;}
+  .repo a{text-decoration:none;}
+  @media (hover:hover) and (pointer:fine){.repo a:hover{text-decoration:underline;}}
+
+  .more{display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));gap:22px 28px;}
+  .mini{border-left:2px solid var(--line);padding:2px 0 2px 16px;}
+  .mini .when{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px;}
+  .mini h3{font-family:var(--display);font-weight:600;font-size:17.5px;margin:0;letter-spacing:-.015em;}
+  .mini p{margin:7px 0 0;font-size:15.5px;color:var(--ink-soft);}
+  .mini a{font-family:var(--mono);font-size:12px;}
+
+  .specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px 32px;}
+  .specs dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+  .specs dd{margin:7px 0 0;font-size:15.5px;line-height:1.55;}
+
+  .timeline{list-style:none;padding:0;margin:0;}
+  .timeline li{display:grid;gap:2px 32px;padding:15px 0;border-bottom:1px solid var(--line-soft);}
+  @media (min-width:760px){.timeline li{grid-template-columns:186px minmax(0,1fr);}}
+  .timeline li:last-child{border-bottom:none;}
+  .timeline .when{font-family:var(--mono);font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+  .timeline strong{font-family:var(--display);font-weight:600;font-size:16.5px;letter-spacing:-.01em;}
+  .timeline em{display:block;font-style:normal;color:var(--ink-soft);font-size:15px;}
+
+  footer{border-top:1px solid var(--line);padding-top:26px;display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;align-items:flex-end;}
+  footer p{margin:0;max-width:48ch;color:var(--ink-soft);font-size:15.5px;}
+  footer .sign{font-family:var(--mono);font-size:12px;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase;}
+
+  header, .quick > div{opacity:1;transform:none;transition:opacity 260ms var(--ease-out), transform 260ms var(--ease-out);}
+  @starting-style{header, .quick > div{opacity:0;transform:translateY(8px);}}
+  .quick > div:nth-child(2){transition-delay:40ms;}
+  .quick > div:nth-child(3){transition-delay:80ms;}
+  .quick > div:nth-child(4){transition-delay:120ms;}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{transition-duration:1ms !important;transition-delay:0ms !important;}
+    header,.quick > div{transform:none !important;}
+  }
+</style>
+
+<div class="sheet">
+
+  <div class="topbar">
+    <span class="who">Gabriel Martins <span>· eletrônica e sistemas embarcados</span></span>
+    <a class="cta" href="mailto:gabriel040876@gmail.com">falar comigo</a>
+  </div>
+
+  <header>
+    <p class="eyebrow">Portfólio técnico · São Paulo, SP · disponível para contratação</p>
+    <h1>Gabriel da Silva Martins</h1>
+    <p class="role">Eletrônica, sistemas embarcados e robótica</p>
+    <p class="pitch">Estudante de Engenharia da Computação no 6º semestre. Escrevo firmware em <strong>C/C++ para ESP32, Arduino e Raspberry Pi Pico</strong>, leio veículos por <strong>CAN e OBD-II</strong> e levo o projeto do requisito ao protótipo instalado: esquemático, proteção de alimentação, montagem, bancada de teste, medição e documentação técnica.</p>
+    <ul class="contacts">
+      <li><a href="mailto:gabriel040876@gmail.com">gabriel040876@gmail.com</a></li>
+      <li><span>(11) 94821-7476</span></li>
+      <li><a href="https://github.com/loock940" target="_blank" rel="noopener">github.com/loock940</a></li>
+      <li><a href="https://www.linkedin.com/in/gabriel-da-silva-martins-00838b275/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+
+    <figure class="hero">
+      <img src="img/iara-painel.jpg" alt="Painel do I.A.R.A. rodando: velocímetro, marcha, RPM, temperatura da água, navegação e mapa, com alerta de OBD-II não detectado.">
+      <figcaption>I.A.R.A. — painel em C++/Qt 6 e QML rodando com mapa, navegação, telemetria do motor e alerta de falha do adaptador OBD-II.</figcaption>
+    </figure>
+  </header>
+
+  <section aria-label="Resumo rápido">
+    <dl class="quick">
+      <div>
+        <dt>Em operação</dt>
+        <dd>91.825 registros de viagem<span>Mais 44.207 pontos de telemetria, em dois meses de teste com uma frota real</span></dd>
+      </div>
+      <div>
+        <dt>Ganho medido</dt>
+        <dd>Latência de voz: 400 ms → 30 ms<span>Resultado de reescrever a camada embarcada de stack web para C++ nativo</span></dd>
+      </div>
+      <div>
+        <dt>Baixo nível</dt>
+        <dd>CAN, OBD-II e BLE no ESP32<span>ESP-IDF, transceiver SN65HVD230, proteção contra load dump e pacote de 20 bytes por segundo</span></dd>
+      </div>
+      <div>
+        <dt>Prêmio</dt>
+        <dd>1º lugar no RoboCar Race<span>Categoria Júnior, Centro Universitário Senac, 2025</span></dd>
+      </div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Projetos em detalhe</h2>
+    <p class="lede">Quatro projetos contados por inteiro: o problema, a decisão técnica, como testei e o número que saiu no final.</p>
+
+    <div class="cases">
+
+      <!-- ===== I.A.R.A. painel ===== -->
+      <article class="case">
+        <div class="head">
+          <p class="kicker">Embarcado + nuvem · cliente real · equipe de seis · 2026</p>
+          <h3>I.A.R.A. — telemetria e gestão para uma frota real</h3>
+          <p class="oneline">Um dono de frota de veículos leves em São Paulo sabia onde os carros estavam, mas não conseguia provar nada depois: sem histórico de trajeto, notas de combustível chegando por foto no WhatsApp e nenhuma resposta quando o cliente perguntava sobre emissão de CO₂.</p>
+          <p class="oneline"><strong>Meu papel:</strong> arquitetura e estruturação da base de código, camada embarcada no veículo e leitura OBD-II, junto à definição do escopo técnico com a equipe.</p>
+        </div>
+
+        <div class="shots two">
+          <figure>
+            <img src="img/iara-obd-leitura.jpg" alt="Tela mostrando leitura OBD-II ao vivo: RPM 1197, velocidade 24 km/h, temperatura do motor 59 graus, carga 2,7 por cento." loading="lazy">
+            <figcaption>Leitura ao vivo do veículo: RPM, velocidade, temperatura do motor, carga e diagnóstico de falhas (DTC).</figcaption>
+          </figure>
+          <figure>
+            <img src="img/iara-fleet.jpg" alt="Painel web do gestor de frota com mapa de São Paulo e coluna de telemetria OBD-II." loading="lazy">
+            <figcaption>Fleet Monitor: o lado do gestor, com mapa, endereços, relatórios e a telemetria que chega do veículo.</figcaption>
+          </figure>
+        </div>
+
+        <div class="blocks">
+          <div class="block">
+            <h4>O sistema que construímos</h4>
+            <ul>
+              <li><strong>No carro:</strong> computador ligado à central eletrônica por OBD-II, lendo RPM, velocidade, temperatura e carga do motor, com tela no painel e registro do trajeto.</li>
+              <li><strong>No abastecimento:</strong> o motorista aponta o celular para o QR Code da nota fiscal, o app confere se ela é legítima e arquiva com a foto — o WhatsApp sai do fluxo.</li>
+              <li><strong>Para o gestor:</strong> painel web com mapa ao vivo e relatório em PDF de trajeto, custo, eficiência e emissão.</li>
+              <li><strong>Roteirização:</strong> melhor ordem de visitas resolvendo o problema do caixeiro-viajante.</li>
+              <li><strong>Assistente de voz</strong> embarcada, para o motorista conversar sem tirar a mão do volante.</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h4>A decisão que doeu</h4>
+            <p>A primeira interface rodava em navegador e estava boa — até entrar o requisito de conversa por voz. A latência do áudio não permitia diálogo natural. Jogamos fora e reescrevemos em <strong>C++ com Qt 6 e QML</strong>, com serialização binária <em>zero-copy</em> em FlatBuffers entre o coletor OBD-II e a interface. Stack não é religião: quando o requisito muda, a decisão volta para a mesa.</p>
+          </div>
+          <div class="block">
+            <h4>Como validamos</h4>
+            <p>Ensaios em <strong>dois veículos</strong>, com quatro amostras a cerca de 3.000 RPM, comparando a leitura com o taquímetro do painel. Documentei também a incompatibilidade de protocolo de um carro anterior à normatização brasileira — o caso que não funcionou entrou no relatório. Na roteirização, um teste com <strong>15 endereços reais de São Paulo</strong> fechou 96,6 km em cerca de 161 minutos.</p>
+          </div>
+          <div class="block result">
+            <h4>Resultado</h4>
+            <ul class="metrics">
+              <li><span class="what">Latência de áudio</span><span class="from">250–400 ms</span><span class="to">30 ms</span></li>
+              <li><span class="what">Memória residente</span><span class="from">700 MB – 1 GB</span><span class="to">150–200 MB</span></li>
+              <li><span class="what">Frame de telemetria</span><span class="from">~320 bytes</span><span class="to">~96 bytes</span></li>
+            </ul>
+            <p style="margin-top:12px"><strong>Dois meses no ar:</strong> 91.825 registros de viagem e 44.207 pontos de telemetria guardados. Outra lição: queríamos capturar 100% da nota fiscal automaticamente, mas isso deixava o motorista esperando no posto — entregamos uma solução híbrida com cinco segundos de digitação. Resolver a dor real ganhou de perseguir a automação total.</p>
+          </div>
+        </div>
+
+        <div class="foot">
+          <ul class="tags"><li>C++</li><li>Qt 6 / QML</li><li>Raspberry Pi 5</li><li>OBD-II / ELM327</li><li>FlatBuffers</li><li>Python</li><li>MapLibre</li><li>AWS</li></ul>
+          <span class="repo"><a href="https://github.com/loock940/obd-app-Interface-em-C" target="_blank" rel="noopener">obd-app-Interface-em-C →</a></span>
+        </div>
+      </article>
+
+      <!-- ===== IARA Lite firmware ===== -->
+      <article class="case">
+        <div class="head">
+          <p class="kicker">Firmware automotivo · ESP-IDF · 2026</p>
+          <h3>IARA Lite — dispositivo que lê o carro pelo barramento CAN</h3>
+          <p class="oneline">A versão de baixo custo: um ESP32 ligado na tomada de diagnóstico, que lê o motor por CAN, entrega 20 bytes por segundo ao celular do motorista por Bluetooth e dorme quando o carro desliga.</p>
+        </div>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 640 176" role="img" aria-label="Diagrama: conector J1962 alimenta o ESP32 por conversor 12 para 5 volts com diodo e TVS; o transceiver CAN conecta ao barramento do veículo e o ESP32 envia dados por Bluetooth LE ao celular.">
+            <defs>
+              <marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"></path>
+              </marker>
+            </defs>
+            <rect x="14" y="52" width="124" height="70" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.2"></rect>
+            <text x="76" y="76" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">Conector J1962</text>
+            <text x="76" y="93" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-soft)">+12 V · CAN-H/L</text>
+            <text x="76" y="109" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-soft)">2 terras separados</text>
+
+            <line x1="138" y1="87" x2="196" y2="87" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#ar1)"></line>
+
+            <rect x="198" y="38" width="136" height="98" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.2"></rect>
+            <text x="266" y="62" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">Proteção</text>
+            <text x="266" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-soft)">diodo 1N4007</text>
+            <text x="266" y="96" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-soft)">TVS 24 V</text>
+            <text x="266" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--signal)">buck 12 → 5 V</text>
+
+            <line x1="334" y1="87" x2="392" y2="87" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#ar1)"></line>
+
+            <rect x="394" y="38" width="140" height="98" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6"></rect>
+            <text x="464" y="62" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">ESP32</text>
+            <text x="464" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-soft)">SN65HVD230</text>
+            <text x="464" y="96" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-soft)">GPS · 4 LEDs</text>
+            <text x="464" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--signal)">deep sleep</text>
+
+            <line x1="534" y1="87" x2="576" y2="87" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#ar1)"></line>
+            <text x="555" y="78" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-soft)">BLE</text>
+
+            <rect x="578" y="52" width="50" height="70" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.2"></rect>
+            <text x="603" y="83" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">Celular</text>
+            <text x="603" y="99" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-soft)">20 B/s</text>
+          </svg>
+          <figcaption>Do conector do carro até o celular: alimentação protegida, leitura por CAN e envio por Bluetooth LE.</figcaption>
+        </figure>
+
+        <div class="blocks">
+          <div class="block">
+            <h4>O desafio</h4>
+            <p>Tirar o custo do projeto: nada de chip de dados por veículo e nada de computador no painel. O aparelho vive dentro do carro, aguenta a rede elétrica automotiva e não pode descarregar a bateria quando o motor desliga.</p>
+          </div>
+          <div class="block">
+            <h4>Decisões de hardware</h4>
+            <ul>
+              <li>Transceiver <strong>SN65HVD230</strong>, de 3,3 V, ligado direto no ESP32 — os módulos de 5 V exigiriam divisor e arriscariam a entrada.</li>
+              <li>Diodo em série contra inversão de polaridade e <strong>TVS de 24 V</strong> contra o load dump, o pico que o alternador gera ao soltar carga.</li>
+              <li>Os dois terras do conector mantidos separados e unidos em estrela junto ao transceiver, para o chaveamento do conversor não injetar ruído no barramento CAN.</li>
+              <li>Quatro LEDs de estado com fade por hardware do periférico LEDC: o brilho é interpolado pelo próprio chip, sem gastar CPU.</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h4>Bancada de teste</h4>
+            <p>Montei um <strong>segundo ESP32 que finge ser o computador de bordo</strong> e responde às requisições OBD-II por CAN, controlado por uma página web que ele mesmo serve. Assim dá para simular 215 °C de motor sem estar dentro do carro — com os dois terminadores de 120 Ω que a bancada exige e o veículo não.</p>
+          </div>
+          <div class="block result">
+            <h4>Resultado</h4>
+            <p>Firmware em C sobre ESP-IDF seguindo as regras de codificação <strong>Power of 10, da NASA JPL</strong>, com pacote de 20 bytes por segundo via Bluetooth LE, armazenamento local quando o celular sai de alcance e sono profundo com o motor desligado. Documentação de montagem escrita para outra pessoa conseguir remontar a bancada do zero.</p>
+          </div>
+        </div>
+
+        <div class="foot">
+          <ul class="tags"><li>ESP32</li><li>ESP-IDF</li><li>C</li><li>CAN</li><li>SN65HVD230</li><li>BLE</li><li>GPS</li><li>LEDC</li><li>Deep sleep</li></ul>
+          <span class="repo">firmware em desenvolvimento · código sob pedido</span>
+        </div>
+      </article>
+
+      <!-- ===== RoboCar ===== -->
+      <article class="case">
+        <div class="head">
+          <p class="kicker">Robótica · competição acadêmica · 2025</p>
+          <h3>RoboCar-Mini — veículo autônomo com desvio de obstáculos</h3>
+          <p class="oneline">O carrinho que ganhou a categoria Júnior do RoboCar Race: varre o ambiente, decide o lado livre e vira sozinho.</p>
+        </div>
+
+        <div class="blocks">
+          <div class="block">
+            <h4>O desafio</h4>
+            <p>Atravessar a pista sem bater e sem parar. Um sensor fixo apontado para frente não resolve: o carro precisa saber para que lado existe espaço antes de virar.</p>
+          </div>
+          <div class="block">
+            <h4>Como funciona o código</h4>
+            <ul>
+              <li><strong>Dois sensores HC-SR04</strong> com a biblioteca NewPing, um de cada lado, limitados a 100 cm de alcance útil.</li>
+              <li>Limiar de <strong>20 cm</strong>: livre dos dois lados, segue em frente; bloqueado de um lado, vira 90° para o outro; bloqueado dos dois, para.</li>
+              <li>Servo varrendo de 30° a 90° em passos de 10°, invertendo o sentido ao chegar nos limites.</li>
+              <li>PWM calibrado <strong>diferente para cada motor</strong> (175 e 220) para compensar a diferença mecânica entre os dois lados — sem isso o carro puxava para um lado.</li>
+              <li>Distâncias impressas na serial durante a corrida, para depurar o comportamento fora da bancada.</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h4>Meu papel</h4>
+            <p>Projeto em equipe de cinco alunos de Engenharia, com montagem, programação em C++ no Arduino e ajuste dos limiares de distância e das velocidades ao longo dos testes de pista.</p>
+          </div>
+          <div class="block result">
+            <h4>Resultado</h4>
+            <p>1º lugar na categoria Júnior do RoboCar Race, com o código aberto no GitHub para quem quiser estudar a lógica de desvio.</p>
+          </div>
+        </div>
+
+        <div class="foot">
+          <ul class="tags"><li>Arduino</li><li>C++</li><li>HC-SR04</li><li>NewPing</li><li>Servo</li><li>PWM</li></ul>
+          <span class="repo"><a href="https://github.com/loock940/RoboCar-Mini" target="_blank" rel="noopener">RoboCar-Mini →</a></span>
+        </div>
+      </article>
+
+      <!-- ===== CriptoLuz ===== -->
+      <article class="case">
+        <div class="head">
+          <p class="kicker">Firmware e rádio · projeto acadêmico · 2025</p>
+          <h3>CriptoLuz — comunicação criptografada por três canais</h3>
+          <p class="oneline">Duas placas conversando por infravermelho, rádio e Wi-Fi, com o sinal embaralhado antes de sair pelo ar.</p>
+        </div>
+
+        <div class="blocks">
+          <div class="block">
+            <h4>O desafio</h4>
+            <p>Trocar mensagens entre dois microcontroladores por caminhos físicos diferentes, sem o conteúdo trafegar em aberto e com as placas operando por conta própria, longe da tomada.</p>
+          </div>
+          <div class="block">
+            <h4>O que eu construí</h4>
+            <ul>
+              <li>Firmware em C/C++ sobre o <strong>Pico SDK</strong>, acessando direto os periféricos do RP2040 e controlando rádio e display por SPI.</li>
+              <li>Três canais independentes: infravermelho, rádio NRF24L01 e Wi-Fi.</li>
+              <li>Criptografia baseada em FFT aplicada ao sinal transmitido.</li>
+              <li>Displays ST7789 e bateria LiPo para operação autônoma.</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h4>Como testei e documentei</h4>
+            <p>Simulação no Wokwi antes da bancada, verificação de cada canal isolado e depois em conjunto, com esquemático elétrico, relatório científico e projeto de PCB no Flux.ai.</p>
+          </div>
+          <div class="block result">
+            <h4>Resultado</h4>
+            <p>Os três canais funcionando com a mesma camada de cifra, e o projeto onde fui mais fundo em firmware de baixo nível antes do ESP32.</p>
+          </div>
+        </div>
+
+        <div class="foot">
+          <ul class="tags"><li>C/C++</li><li>Pico SDK</li><li>RP2040</li><li>NRF24L01</li><li>Infravermelho</li><li>Wi-Fi</li><li>SPI</li><li>ST7789</li><li>FFT</li></ul>
+          <span class="repo">relatório e esquemático sob pedido</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Outros projetos</h2>
+    <div class="more">
+      <article class="mini">
+        <span class="when">2025 · ESP32</span>
+        <h3>Controle de videogame servido pelo ESP32</h3>
+        <p>Gamepad virtual em um único arquivo HTML, servido offline pelo próprio ESP32, sem internet e sem biblioteca externa: D-Pad, quatro botões em losango, feedback de toque e layout que vai do desktop ao celular em tela cheia.</p>
+        <a href="https://github.com/loock940/Game-Controller-Virtual" target="_blank" rel="noopener">ver repositório →</a>
+      </article>
+      <article class="mini">
+        <span class="when">dez/2025 · Senac e UNIFESP</span>
+        <h3>Detector de obstáculos assistivo</h3>
+        <p>Dispositivo de tecnologia assistiva com sensor a laser e feedback tátil, idealizado por André Coutinho (UNIFESP). Fiz a parte elétrica: dimensionamento, desenvolvimento do circuito, montagem e soldagem de todos os componentes. Apresentei o projeto no 1º Simpósio de Diversidades em Expressão.</p>
+      </article>
+      <article class="mini">
+        <span class="when">jun/2025 · física aplicada</span>
+        <h3>Foguete "Santos Dumont"</h3>
+        <p>Foguete em MDF e papel com propulsão por garrafa PET pressurizada com água, e base de lançamento remoto acionada pelo celular. Projeto interdisciplinar com Engenharia de Produção.</p>
+      </article>
+      <article class="mini">
+        <span class="when">Projeto pessoal · em casa</span>
+        <h3>Câmeras de casa em um notebook antigo</h3>
+        <p>Programa em C que pega as imagens das câmeras do DVR e as transmite, resolvendo o problema sem equipamento novo e reaproveitando uma máquina parada.</p>
+      </article>
+      <article class="mini">
+        <span class="when">1º sem/2025 · iniciação científica</span>
+        <h3>Mamografias com aprendizado de máquina</h3>
+        <p>Implementei o modelo que identifica tumores em exames e aponta a região suspeita na imagem. Pesquisa orientada, na linha de computação quântica.</p>
+      </article>
+      <article class="mini">
+        <span class="when">2026 · otimização de rotas</span>
+        <h3>FleetTSP — roteirizador da frota</h3>
+        <p>Dois solucionadores para o mesmo problema: no navegador, vizinho mais próximo com refinamento 2-opt, que roda sem servidor nenhum; no backend em Flask, Google OR-Tools com busca local guiada e limite de 5 segundos. Distâncias rodoviárias reais pelo OSRM, geocodificação com cache e mapa em Leaflet.</p>
+        <a href="https://github.com/loock940/Problema-do-Caixeiro-Viajante" target="_blank" rel="noopener">ver repositório →</a>
+      </article>
+      <article class="mini">
+        <span class="when">2026 · C# · processamento de sinais</span>
+        <h3>Embaralhamento de fase por FFT</h3>
+        <p>Cifra de imagem no domínio da frequência: a transformada é decomposta em módulo e fase, a fase recebe um deslocamento derivado da senha (hash FNV-1a alimentando um gerador congruencial) e o espectro é recomposto. Transformada escrita do zero, com avaliador de integridade, histograma e visualizador de espectro em WinForms.</p>
+        <a href="https://github.com/loock940/optical-phase-scrambling" target="_blank" rel="noopener">ver repositório →</a>
+      </article>
+      <article class="mini">
+        <span class="when">2025 · Python e física aplicada</span>
+        <h3>Volume de esferas com propagação de incerteza</h3>
+        <p>Medição com paquímetro, cálculo de volume e incerteza experimental, com a análise automatizada em Python usando NumPy e Pandas.</p>
+        <a href="https://github.com/loock940/Calculos-do-volume-da-esfera" target="_blank" rel="noopener">ver repositório →</a>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Com o que eu trabalho</h2>
+    <dl class="specs">
+      <div>
+        <dt>Microcontroladores</dt>
+        <dd>ESP32 (ESP-IDF) · Arduino · Raspberry Pi Pico W (RP2040) · Raspberry Pi 5</dd>
+      </div>
+      <div>
+        <dt>Linguagens</dt>
+        <dd>C · C++ · Python · JavaScript · QML · HTML e CSS</dd>
+      </div>
+      <div>
+        <dt>Barramentos e protocolos</dt>
+        <dd>CAN · OBD-II (ELM327) · I2C · SPI · UART · PWM · Bluetooth LE · Wi-Fi · rádio NRF24L01 · infravermelho</dd>
+      </div>
+      <div>
+        <dt>Eletrônica</dt>
+        <dd>Sensores e atuadores · LEDs · relés · RFID · motores e servos · GPS · display TFT ST7789 · bateria LiPo · conversores e proteção de alimentação</dd>
+      </div>
+      <div>
+        <dt>Bancada e documentação</dt>
+        <dd>Protoboard · esquemático elétrico · PCB no Flux.ai · simulação no Wokwi · multímetro, osciloscópio e fonte ajustável · relatórios técnicos em LaTeX</dd>
+      </div>
+      <div>
+        <dt>Software e nuvem</dt>
+        <dd>Qt 6 · FlatBuffers · Flask · Socket.IO · React · AWS (EC2, DynamoDB) · Git e GitHub · Linux · NumPy e Pandas</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Formação e conquistas</h2>
+    <ul class="timeline">
+      <li>
+        <span class="when">fev/2024 – fev/2029</span>
+        <span><strong>Bacharelado em Engenharia da Computação</strong><em>Centro Universitário Senac – Campus Santo Amaro · cursando o 6º semestre</em></span>
+      </li>
+      <li>
+        <span class="when">2º sem/2025</span>
+        <span><strong>1º lugar — categoria Júnior do RoboCar Race</strong><em>Competição de robótica do Centro Universitário Senac</em></span>
+      </li>
+      <li>
+        <span class="when">dez/2025</span>
+        <span><strong>Apresentador no 1º Simpósio de Diversidades em Expressão</strong><em>Projeto de tecnologia assistiva, parceria Senac e UNIFESP</em></span>
+      </li>
+      <li>
+        <span class="when">2025</span>
+        <span><strong>Treinamento em RPA com Automation Anywhere</strong><em>Em parceria com o Centro Universitário Senac · participante do Geração Senac 2025</em></span>
+      </li>
+      <li>
+        <span class="when">2019 – 2022</span>
+        <span><strong>Ensino médio completo</strong><em>E.E. Professora Emília de Paiva Meira · São Paulo, SP</em></span>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Disponível para trabalho presencial em São Paulo, de segunda a sábado. Inglês para leitura de documentação técnica e datasheets. CNH categoria B. Para conversar: <a href="mailto:gabriel040876@gmail.com">gabriel040876@gmail.com</a> ou (11) 94821-7476.</p>
+    <p class="sign">São Paulo · 2026</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
