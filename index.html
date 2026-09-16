@@ -327,19 +327,22 @@
       </article>
 
       <article class="projeto">
-        <div class="projeto-midia sem-foto">
-          <span><b>Sensores</b> · dois HC-SR04 com NewPing</span>
-          <span><b>Varredura</b> · servo de 30° a 90°, passos de 10°</span>
-          <span><b>Decisão</b> · limiar de 20 cm, curva de 90°</span>
-          <span><b>Tração</b> · PWM calibrado por motor (175 e 220)</span>
-        </div>
+        <button type="button" class="projeto-midia com-foto" data-galeria="gal-robocar" aria-haspopup="dialog">
+          <img src="img/robocar/podio.jpg" alt="Equipe no pódio do RoboCar Race, segurando o carrinho autônomo e os troféus." loading="lazy">
+          <span class="ver-fotos">Ver fotos</span>
+        </button>
         <div class="projeto-texto">
-          <p class="meta">2025 · competição de robótica</p>
+          <p class="meta">2025 · competição de robótica · 2º lugar</p>
           <h3>RoboCar-Mini — veículo autônomo</h3>
-          <p>Carrinho que atravessa a pista sozinho: dois sensores ultrassônicos comparam a distância de cada lado, o servo varre o ambiente e o carro vira para onde há espaço, parando quando não há saída. O ajuste que fez diferença foi calibrar o PWM diferente em cada motor, para compensar a diferença mecânica entre as rodas. Venceu a categoria Júnior do RoboCar Race.</p>
+          <p>Carrinho que atravessa a pista sozinho: dois sensores ultrassônicos comparam a distância de cada lado, o servo varre o ambiente e o carro vira para onde há espaço, parando quando não há saída. O ajuste que fez diferença foi calibrar o PWM diferente em cada motor, para compensar a diferença mecânica entre as rodas. Ficamos em <strong>segundo lugar na categoria Júnior do RoboCar Race</strong>, com a equipe Picaretas Productions.</p>
           <p class="papel"><b>Meu papel:</b> equipe de cinco. Montagem, programação em C++ e ajuste dos limiares e velocidades nos testes de pista.</p>
           <ul class="tags"><li>Arduino</li><li>C++</li><li>HC-SR04</li><li>Servo</li><li>PWM</li></ul>
           <a class="link-projeto" href="https://github.com/loock940/RoboCar-Mini" target="_blank" rel="noopener">Ver repositório ↗</a>
+        </div>
+
+        <div class="fotos-projeto" id="gal-robocar" data-titulo="RoboCar-Mini — RoboCar Race, categoria Júnior" hidden>
+          <figure><img src="img/robocar/podio.jpg" alt="Equipe no pódio segurando o carrinho autônomo e os troféus da competição."><figcaption>A equipe no pódio com o carrinho e os troféus, ao fim da competição.</figcaption></figure>
+          <figure><img src="img/robocar/podio-legenda.jpg" alt="Quadro do vídeo da premiação: categoria Júnior, segundo lugar, equipe Picaretas Productions."><figcaption>Premiação: categoria Júnior, segundo lugar, equipe Picaretas Productions.</figcaption></figure>
         </div>
       </article>
 
