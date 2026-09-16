@@ -3,554 +3,310 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Portfólio técnico de Gabriel da Silva Martins — firmware em C/C++ para ESP32, Arduino e Raspberry Pi Pico, eletrônica automotiva (CAN e OBD-II), robótica e desenvolvimento de software.">
+<meta name="description" content="Portfólio de Gabriel da Silva Martins — firmware em C/C++ para ESP32, Arduino e Raspberry Pi Pico, eletrônica automotiva (CAN e OBD-II), robótica e desenvolvimento de software.">
 <meta name="author" content="Gabriel da Silva Martins">
 <meta property="og:title" content="Gabriel da Silva Martins — Portfólio técnico">
-<meta property="og:description" content="Eletrônica, sistemas embarcados e robótica: telemetria veicular por CAN e OBD-II, firmware em ESP-IDF, robô autônomo vencedor do RoboCar Race e projetos de software.">
+<meta property="og:description" content="Eletrônica, sistemas embarcados e robótica: telemetria veicular por CAN e OBD-II, firmware em ESP-IDF e o robô autônomo vencedor do RoboCar Race.">
 <meta property="og:type" content="profile">
 <meta property="og:image" content="https://loock940.github.io/portfolio/img/iara-poi.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#1B3F8B">
-<style>
-  *,*::before,*::after{box-sizing:border-box}
-  html{color-scheme:light dark}
-  body{margin:0}
-  img{max-width:100%}
-  [hidden]{display:none!important}
-</style>
+<meta name="theme-color" content="#0d1117">
 <title>Bancada de Gabriel Martins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-<style>
-  :root{
-    --paper:#FFFFFF;
-    --ground:#F4F6F8;
-    --ink:#14181D;
-    --muted:#5C646E;
-    --line:#DBE0E6;
-    --line-soft:#E8ECF1;
-    --accent:#1B3F8B;
-    --accent-soft:rgba(27,63,139,.07);
 
-    --serif:"Times New Roman",Times,Georgia,serif;
-    --sans:Arial,Helvetica,"Segoe UI",sans-serif;
+<!-- ============================ CABEÇALHO ============================ -->
+<header>
+  <div class="interface">
+    <a href="#inicio" class="logo">gabriel<span>martins</span></a>
 
-    --ease-out:cubic-bezier(.23,1,.32,1);
-    --gutter:clamp(18px,5vw,48px);
-    --maxw:1080px;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --paper:#151A20;--ground:#0E1216;--ink:#E9EDF2;--muted:#9AA3AE;
-      --line:#272D36;--line-soft:#1D232B;--accent:#8FB0F2;--accent-soft:rgba(143,176,242,.12);
-    }
-  }
-  :root[data-theme="dark"]{
-    --paper:#151A20;--ground:#0E1216;--ink:#E9EDF2;--muted:#9AA3AE;
-    --line:#272D36;--line-soft:#1D232B;--accent:#8FB0F2;--accent-soft:rgba(143,176,242,.12);
-  }
-
-  body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.62;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter);}
-  a{color:var(--accent);text-underline-offset:3px;}
-  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
-  h1,h2,h3{font-family:var(--serif);font-weight:400;}
-
-  /* ---------- barra ---------- */
-  .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);
-    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px;
-    padding-top:calc(10px + env(safe-area-inset-top,0px));font-size:13px;}
-  .bar .nome{font-family:var(--serif);font-size:17px;}
-  .bar nav{display:flex;gap:4px;}
-  .bar nav a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:2px;
-    transition:color 150ms ease,background-color 150ms ease;}
-  .bar nav a.cta{color:var(--paper);background:var(--accent);
-    transition:transform 140ms var(--ease-out),filter 150ms ease;}
-  .bar nav a.cta:active{transform:scale(.97);}
-  @media (hover:hover) and (pointer:fine){
-    .bar nav a:hover{color:var(--ink);background:var(--accent-soft);}
-    .bar nav a.cta:hover{color:var(--paper);background:var(--accent);filter:brightness(1.12);}
-  }
-  @media (max-width:520px){.bar nav a.opt{display:none;}}
-
-  /* ---------- capa ---------- */
-  .capa{background:var(--paper);border-bottom:1px solid var(--line);}
-  .capa .wrap{padding-block:clamp(44px,8vw,86px);}
-  .rotulo{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0;}
-  h1{font-size:clamp(40px,8vw,72px);line-height:1.04;letter-spacing:-.015em;margin:14px 0 0;text-wrap:balance;}
-  .cargo{margin:14px 0 0;font-size:clamp(15px,2.2vw,17px);color:var(--accent);}
-  .sumario{margin:22px 0 0;max-width:64ch;color:var(--muted);font-size:16.5px;}
-  .sumario b{color:var(--ink);font-weight:bold;}
-  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;font-size:13.5px;}
-  .bt{display:inline-block;padding:10px 16px;border-radius:2px;text-decoration:none;border:1px solid var(--line);
-    background:var(--paper);color:var(--ink);
-    transition:transform 140ms var(--ease-out),border-color 150ms ease,color 150ms ease,background-color 150ms ease;}
-  .bt:active{transform:scale(.97);}
-  .bt.cheio{background:var(--accent);border-color:var(--accent);color:#fff;}
-  @media (hover:hover) and (pointer:fine){
-    .bt:hover{border-color:var(--accent);color:var(--accent);}
-    .bt.cheio:hover{color:#fff;filter:brightness(1.1);}
-  }
-
-  /* ---------- seções ---------- */
-  section{padding-block:clamp(44px,7vw,76px);}
-  .cab{margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--line);
-    display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-  .cab h2{font-size:clamp(24px,4vw,34px);margin:0;letter-spacing:-.01em;}
-  .cab span{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
-
-  /* ---------- projetos: todos no mesmo peso ---------- */
-  .projetos{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:20px;align-items:start;}
-  .proj{background:var(--paper);border:1px solid var(--line);border-radius:3px;overflow:hidden;
-    display:flex;flex-direction:column;}
-  .proj .foto{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--ground);
-    border-bottom:1px solid var(--line-soft);}
-  .proj .corpo{padding:20px 20px 0;flex:1;}
-  .proj .meta{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0;}
-  .proj h3{font-size:22px;line-height:1.2;margin:8px 0 0;letter-spacing:-.01em;}
-  .proj p{margin:10px 0 0;font-size:15.5px;color:var(--muted);}
-  .proj p.papel{color:var(--ink);}
-  .proj p.papel b{font-family:var(--sans);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
-    display:block;margin-bottom:3px;font-weight:normal;}
-  .proj ul.det{margin:12px 0 0;padding-left:1.1em;font-size:15px;color:var(--muted);}
-  .proj ul.det li{margin:5px 0;}
-  .proj ul.det b{color:var(--ink);}
-  .num{list-style:none;margin:14px 0 0;padding:12px 14px;background:var(--accent-soft);border-radius:2px;
-    display:grid;gap:7px;font-size:13.5px;}
-  .num li{display:flex;justify-content:space-between;gap:12px;}
-  .num .k{color:var(--muted);}
-  .num .v{font-variant-numeric:tabular-nums;font-weight:bold;color:var(--ink);white-space:nowrap;}
-  .proj .pe{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:16px 20px 20px;margin-top:16px;}
-  .proj .pe span{font-size:11.5px;color:var(--muted);border:1px solid var(--line);padding:3px 8px;border-radius:99px;}
-  .proj .pe a{font-size:12.5px;text-decoration:none;margin-left:auto;white-space:nowrap;}
-  @media (hover:hover) and (pointer:fine){.proj .pe a:hover{text-decoration:underline;}}
-
-  /* ---------- diagrama ---------- */
-  details.diag{margin:14px 0 0;border-top:1px solid var(--line-soft);padding-top:12px;}
-  details.diag summary{cursor:pointer;font-size:13px;color:var(--accent);list-style:none;}
-  details.diag summary::-webkit-details-marker{display:none;}
-  details.diag summary::before{content:"▸ ";}
-  details.diag[open] summary::before{content:"▾ ";}
-  .diagbox{overflow-x:auto;margin-top:12px;}
-  .diagbox svg{display:block;min-width:520px;width:100%;height:auto;}
-
-  /* ---------- galeria ---------- */
-  .galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;}
-  .galeria figure{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:3px;overflow:hidden;
-    transition:transform 200ms var(--ease-out),box-shadow 200ms ease;}
-  @media (hover:hover) and (pointer:fine){
-    .galeria figure:hover{transform:translateY(-2px);box-shadow:0 8px 24px -18px rgba(0,0,0,.5);}
-  }
-  .galeria img{display:block;width:100%;height:210px;object-fit:cover;border-bottom:1px solid var(--line-soft);}
-  .galeria figcaption{padding:12px 14px;font-size:13.5px;color:var(--muted);line-height:1.5;}
-  .galeria figcaption b{display:block;color:var(--ink);font-weight:bold;margin-bottom:2px;}
-
-  /* ---------- competências ---------- */
-  .comp{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px 32px;}
-  .comp dt{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
-  .comp dd{margin:8px 0 0;font-size:15.5px;color:var(--muted);}
-  .comp dd b{color:var(--ink);font-weight:bold;}
-
-  /* ---------- formação ---------- */
-  .tempo{list-style:none;margin:0;padding:0;}
-  .tempo li{display:grid;gap:3px 30px;padding:14px 0;border-bottom:1px solid var(--line-soft);}
-  @media (min-width:720px){.tempo li{grid-template-columns:172px minmax(0,1fr);}}
-  .tempo li:last-child{border-bottom:none;}
-  .tempo .quando{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums;}
-  .tempo strong{font-family:var(--serif);font-weight:normal;font-size:18px;}
-  .tempo em{display:block;font-style:normal;color:var(--muted);font-size:15px;}
-
-  /* ---------- contato ---------- */
-  .contato{background:var(--paper);border-top:1px solid var(--line);}
-  .contato h2{font-size:clamp(26px,5vw,40px);margin:0;}
-  .contato p{color:var(--muted);max-width:56ch;margin:16px 0 0;}
-  .rodape{font-size:12.5px;color:var(--muted);padding-block:20px;border-top:1px solid var(--line-soft);
-    display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;margin-top:32px;}
-
-  /* ---------- movimento ---------- */
-  .capa .rotulo,.capa h1,.capa .cargo,.capa .sumario,.capa .links{
-    opacity:1;transform:none;transition:opacity 260ms var(--ease-out),transform 260ms var(--ease-out);}
-  @starting-style{
-    .capa .rotulo,.capa h1,.capa .cargo,.capa .sumario,.capa .links{opacity:0;transform:translateY(8px);}
-  }
-  .capa h1{transition-delay:50ms;} .capa .cargo{transition-delay:100ms;}
-  .capa .sumario{transition-delay:150ms;} .capa .links{transition-delay:200ms;}
-
-  @supports (animation-timeline: view()){
-    @media (prefers-reduced-motion: no-preference){
-      .surge{animation:sobe linear both;animation-timeline:view();animation-range:entry 5% entry 38%;}
-      @keyframes sobe{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
-    }
-  }
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{transition-duration:1ms !important;transition-delay:0ms !important;animation:none !important;}
-    .capa .rotulo,.capa h1,.capa .cargo,.capa .sumario,.capa .links{opacity:1 !important;transform:none !important;}
-  }
-</style>
-
-<div class="bar">
-  <div class="wrap">
-    <span class="nome">Gabriel da Silva Martins</span>
-    <nav>
-      <a href="#projetos" class="opt">Projetos</a>
-      <a href="#fotos" class="opt">Fotos</a>
-      <a href="#competencias" class="opt">Competências</a>
-      <a href="mailto:gabriel040876@gmail.com" class="cta">Contato</a>
+    <nav class="menu-desktop" aria-label="Navegação principal">
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#especialidades">Especialidades</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
     </nav>
-  </div>
-</div>
 
-<header class="capa">
-  <div class="wrap">
-    <p class="rotulo">Portfólio técnico · São Paulo, SP</p>
-    <h1>Gabriel da Silva Martins</h1>
-    <p class="cargo">Engenharia da Computação · eletrônica, sistemas embarcados e robótica</p>
-    <p class="sumario">Estudante de Engenharia da Computação no 6º semestre. Escrevo firmware em <b>C e C++ para ESP32, Arduino e Raspberry Pi Pico</b>, leio veículos por <b>CAN e OBD-II</b>, desenvolvo em Python, C# e JavaScript, e levo cada projeto do requisito ao protótipo funcional: esquemático, montagem, bancada de teste, medição e documentação.</p>
-    <div class="links">
-      <a class="bt cheio" href="mailto:gabriel040876@gmail.com">gabriel040876@gmail.com</a>
-      <a class="bt" href="tel:+5511948217476">(11) 94821-7476</a>
-      <a class="bt" href="https://github.com/loock940" target="_blank" rel="noopener">GitHub</a>
-      <a class="bt" href="https://www.linkedin.com/in/gabriel-da-silva-martins-00838b275/" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
+    <a href="#contato" class="btn-contato">Fale comigo</a>
   </div>
 </header>
 
 <main>
 
-<section id="projetos" class="wrap">
-  <div class="cab surge">
-    <h2>Projetos</h2>
-    <span>Acadêmicos, de competição e pessoais</span>
+<!-- ============================ TOPO DO SITE ============================ -->
+<section class="topo-do-site" id="inicio">
+  <div class="interface flex">
+    <div class="txt-topo-site">
+      <h1>Eu transformo requisito em <span>hardware que funciona</span></h1>
+      <p>Estudante de Engenharia da Computação no 6º semestre. Escrevo firmware em <strong>C e C++ para ESP32, Arduino e Raspberry Pi Pico</strong>, leio veículos por <strong>CAN e OBD-II</strong> e levo o projeto até o fim: esquemático, proteção de alimentação, montagem, bancada de teste, medição e documentação.</p>
+
+      <div class="btn-acoes">
+        <a href="#projetos" class="btn btn-primario">Ver projetos</a>
+        <a href="https://github.com/loock940" target="_blank" rel="noopener" class="btn btn-secundario">GitHub</a>
+      </div>
+
+      <div class="numeros">
+        <div><strong>91.825</strong><span>viagens registradas em operação</span></div>
+        <div><strong>30 ms</strong><span>latência de voz, era 400 ms</span></div>
+        <div><strong>1º lugar</strong><span>categoria Júnior · RoboCar Race</span></div>
+      </div>
+    </div>
+
+    <div class="img-topo-site">
+      <figure>
+        <img src="img/iara-painel.jpg" alt="Painel do I.A.R.A. instalado no carro, mostrando velocímetro, marcha, RPM, navegação e mapa." width="1400" height="731">
+        <figcaption>I.A.R.A. — painel embarcado em C++ com Qt 6, lendo o motor pela porta OBD-II.</figcaption>
+      </figure>
+    </div>
   </div>
+</section>
 
-  <div class="projetos">
+<!-- ============================ ESPECIALIDADES ============================ -->
+<section class="especialidades" id="especialidades">
+  <div class="interface">
+    <h2 class="titulo">Minhas <span>especialidades</span></h2>
+    <p class="subtitulo">Quatro frentes que aparecem em quase todo projeto meu, da placa nua até o sistema rodando.</p>
 
-    <article class="proj surge">
-      <img class="foto" src="img/iara-poi.jpg" alt="Painel do I.A.R.A. rodando com mapa, navegação e sugestão de ponto de interesse." loading="lazy">
-      <div class="corpo">
-        <p class="meta">2026 · equipe de seis · cliente real</p>
-        <h3>I.A.R.A. — telemetria e gestão de frota</h3>
-        <p>Um dono de frota em São Paulo sabia onde os carros estavam, mas não conseguia provar nada depois: sem histórico de trajeto, notas de combustível por WhatsApp e nenhuma resposta sobre emissão de CO₂. O sistema lê o veículo pela OBD-II, registra o trajeto, valida a nota fiscal pelo QR Code e entrega mapa e relatório ao gestor.</p>
-        <p class="papel"><b>Meu papel</b>Arquitetura e base de código, camada embarcada no veículo e leitura OBD-II.</p>
-        <ul class="num">
-          <li><span class="k">Latência de voz após reescrita em C++</span><span class="v">400 → 30 ms</span></li>
-          <li><span class="k">Memória residente</span><span class="v">1 GB → 200 MB</span></li>
-          <li><span class="k">Dois meses em operação</span><span class="v">91.825 viagens</span></li>
-        </ul>
-      </div>
-      <div class="pe">
-        <span>C++</span><span>Qt 6</span><span>OBD-II</span><span>FlatBuffers</span><span>Python</span><span>AWS</span>
-        <a href="https://github.com/loock940/obd-app-Interface-em-C" target="_blank" rel="noopener">repositório ↗</a>
-      </div>
-    </article>
+    <div class="especialidades-flex">
 
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">2026 · firmware automotivo</p>
-        <h3>IARA Lite — leitura do carro por CAN</h3>
-        <p>Um ESP32 ligado na tomada de diagnóstico do veículo: lê o motor pelo barramento CAN, entrega 20 bytes por segundo ao celular do motorista por Bluetooth e dorme quando o carro desliga. Sem chip de dados por veículo — quem tem internet é o celular.</p>
-        <ul class="det">
-          <li><b>SN65HVD230</b> de 3,3 V ligado direto no ESP32, sem divisor.</li>
-          <li>Diodo contra inversão de polaridade e <b>TVS de 24 V</b> contra load dump.</li>
-          <li>Terras de potência e de sinal unidos em estrela junto ao transceiver.</li>
-          <li>Firmware em C sobre ESP-IDF, nas regras <b>Power of 10 (NASA JPL)</b>.</li>
-          <li>Bancada com um segundo ESP32 simulando a central do carro.</li>
-        </ul>
-        <details class="diag">
-          <summary>Ver diagrama do dispositivo</summary>
-          <div class="diagbox">
-            <svg viewBox="0 0 600 168" role="img" aria-label="Diagrama: o conector J1962 alimenta o ESP32 por um conversor de 12 para 5 volts com diodo e TVS; o ESP32 lê o barramento CAN e envia 20 bytes por segundo ao celular por Bluetooth LE.">
-              <defs>
-                <marker id="s1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M0 0 L10 5 L0 10 z" fill="currentColor"></path>
-                </marker>
-              </defs>
-              <g color="var(--accent)" fill="none" stroke="currentColor">
-                <rect x="8" y="48" width="118" height="70" rx="2" stroke="var(--line)" fill="var(--ground)"></rect>
-                <rect x="186" y="36" width="130" height="94" rx="2" stroke="var(--line)" fill="var(--ground)"></rect>
-                <rect x="376" y="36" width="134" height="94" rx="2" stroke="var(--line)" fill="var(--ground)"></rect>
-                <rect x="546" y="48" width="46" height="70" rx="2" stroke="var(--line)" fill="var(--ground)"></rect>
-                <line x1="126" y1="83" x2="184" y2="83" stroke="currentColor" stroke-width="1.3" marker-end="url(#s1)"></line>
-                <line x1="316" y1="83" x2="374" y2="83" stroke="currentColor" stroke-width="1.3" marker-end="url(#s1)"></line>
-                <line x1="510" y1="83" x2="544" y2="83" stroke="currentColor" stroke-width="1.3" marker-end="url(#s1)"></line>
-              </g>
-              <g font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="middle">
-                <text x="67" y="74" fill="var(--ink)">Conector J1962</text>
-                <text x="67" y="91" fill="var(--muted)">+12 V · CAN-H/L</text>
-                <text x="67" y="107" fill="var(--muted)">2 terras separados</text>
-                <text x="251" y="62" fill="var(--ink)">Proteção</text>
-                <text x="251" y="80" fill="var(--muted)">diodo 1N4007</text>
-                <text x="251" y="96" fill="var(--muted)">TVS 24 V</text>
-                <text x="251" y="114" fill="var(--accent)">buck 12 → 5 V</text>
-                <text x="443" y="62" fill="var(--ink)">ESP32</text>
-                <text x="443" y="80" fill="var(--muted)">SN65HVD230</text>
-                <text x="443" y="96" fill="var(--muted)">GPS · 4 LEDs</text>
-                <text x="443" y="114" fill="var(--accent)">deep sleep</text>
-                <text x="569" y="78" fill="var(--ink)">Celular</text>
-                <text x="569" y="95" fill="var(--muted)">20 B/s</text>
-              </g>
-            </svg>
-          </div>
-        </details>
+      <div class="especialidades-box">
+        <i aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="7" width="10" height="10" rx="1.5"></rect>
+            <path d="M10 7V3M14 7V3M10 21v-4M14 21v-4M7 10H3M7 14H3M21 10h-4M21 14h-4"></path>
+          </svg>
+        </i>
+        <h3>Sistemas embarcados e firmware</h3>
+        <p>C e C++ em ESP-IDF, Pico SDK e Arduino, acessando periférico direto: temporizadores, PWM, SPI, I2C, UART e sono profundo.</p>
       </div>
-      <div class="pe">
-        <span>ESP32</span><span>ESP-IDF</span><span>C</span><span>CAN</span><span>BLE</span><span>GPS</span>
-      </div>
-    </article>
 
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">2025 · competição · 1º lugar</p>
-        <h3>RoboCar-Mini — veículo autônomo</h3>
-        <p>Carrinho autônomo que venceu a categoria Júnior do RoboCar Race. Dois sensores ultrassônicos comparam a distância dos dois lados, um servo varre o ambiente e o carro decide para onde virar, tudo em C++ no Arduino.</p>
-        <p class="papel"><b>Meu papel</b>Equipe de cinco. Montagem, programação e ajuste dos limiares e velocidades na pista.</p>
-        <ul class="det">
-          <li>Dois <b>HC-SR04</b> com NewPing, alcance útil de 100 cm.</li>
-          <li>Limiar de <b>20 cm</b>: livre segue, um lado bloqueado vira 90°, dois lados bloqueados para.</li>
-          <li>Servo varrendo de 30° a 90° em passos de 10°.</li>
-          <li>PWM calibrado diferente para cada motor (175 e 220) para compensar a diferença mecânica entre as rodas.</li>
-        </ul>
+      <div class="especialidades-box">
+        <i aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 13l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 8l2 5"></path>
+            <path d="M3 13h18v5H3z"></path>
+            <circle cx="7" cy="18" r="1.6"></circle>
+            <circle cx="17" cy="18" r="1.6"></circle>
+          </svg>
+        </i>
+        <h3>Eletrônica automotiva</h3>
+        <p>Leitura de veículos por CAN e OBD-II, proteção contra load dump, conversão de 12 V e aterramento em estrela para não sujar o barramento.</p>
       </div>
-      <div class="pe">
-        <span>Arduino</span><span>C++</span><span>HC-SR04</span><span>Servo</span><span>PWM</span>
-        <a href="https://github.com/loock940/RoboCar-Mini" target="_blank" rel="noopener">repositório ↗</a>
-      </div>
-    </article>
 
-    <article class="proj surge">
-      <img class="foto" src="img/simposio-1.jpg" alt="Apresentação do dispositivo de tecnologia assistiva no 1º Simpósio de Diversidades em Expressão." loading="lazy">
-      <div class="corpo">
-        <p class="meta">dez/2025 · Senac e UNIFESP</p>
-        <h3>Tecnologia assistiva para detecção de obstáculos</h3>
-        <p>Dispositivo personalizável que detecta obstáculos por sensor a laser e responde ao usuário por feedback tátil, idealizado por André Coutinho. Apresentado no 1º Simpósio de Diversidades em Expressão.</p>
-        <p class="papel"><b>Meu papel</b>Parte elétrica: dimensionamento, desenvolvimento do circuito, montagem e soldagem de todos os componentes. Apresentei o projeto no simpósio.</p>
+      <div class="especialidades-box">
+        <i aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="9" width="14" height="10" rx="2"></rect>
+            <path d="M12 9V5M9 5h6"></path>
+            <circle cx="9.5" cy="13.5" r="1"></circle>
+            <circle cx="14.5" cy="13.5" r="1"></circle>
+            <path d="M2 13v3M22 13v3"></path>
+          </svg>
+        </i>
+        <h3>Robótica e automação</h3>
+        <p>Sensores, servos e motores com controle PWM, lógica de decisão em tempo real e o ajuste fino que só aparece testando na pista.</p>
       </div>
-      <div class="pe">
-        <span>Sensor a laser</span><span>Eletrônica</span><span>Soldagem</span><span>Prototipagem</span>
-      </div>
-    </article>
 
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">2025 · firmware e rádio</p>
-        <h3>CriptoLuz — comunicação por três canais</h3>
-        <p>Duas placas Raspberry Pi Pico W trocando mensagens por infravermelho, rádio NRF24L01 e Wi-Fi, com o sinal embaralhado por FFT antes de sair pelo ar. Firmware em C/C++ sobre o Pico SDK, acessando direto os periféricos do RP2040.</p>
-        <ul class="det">
-          <li>Display ST7789 por SPI em cada ponta e bateria LiPo para operação autônoma.</li>
-          <li>Documentação completa: esquemático, simulação no Wokwi, relatório e PCB no Flux.ai.</li>
-        </ul>
+      <div class="especialidades-box">
+        <i aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l-5-6 5-6M15 6l5 6-5 6"></path>
+          </svg>
+        </i>
+        <h3>Software que fala com o hardware</h3>
+        <p>Python, C# e JavaScript para o outro lado do fio: interfaces em Qt, serviços em Flask, nuvem na AWS e análise de dados com NumPy e Pandas.</p>
       </div>
-      <div class="pe">
-        <span>C/C++</span><span>Pico SDK</span><span>RP2040</span><span>NRF24L01</span><span>SPI</span><span>FFT</span>
-      </div>
-    </article>
 
-    <article class="proj surge">
-      <img class="foto" src="img/tsp-rotas.jpg" alt="Tela de planejamento de rotas com 15 endereços importados e a rota otimizada desenhada no mapa de São Paulo." loading="lazy">
-      <div class="corpo">
-        <p class="meta">2026 · otimização</p>
-        <h3>FleetTSP — roteirizador de entregas</h3>
-        <p>Resolve o problema do caixeiro-viajante para uma lista de endereços: no navegador, vizinho mais próximo com refinamento 2-opt, sem servidor nenhum; no backend, Google OR-Tools com busca local guiada. Distâncias rodoviárias reais pelo OSRM.</p>
-        <ul class="det">
-          <li>Teste com 15 endereços reais de São Paulo: <b>96,6 km em cerca de 161 minutos</b>.</li>
-        </ul>
-      </div>
-      <div class="pe">
-        <span>Python</span><span>Flask</span><span>OR-Tools</span><span>OSRM</span><span>Leaflet</span>
-        <a href="https://github.com/loock940/Problema-do-Caixeiro-Viajante" target="_blank" rel="noopener">repositório ↗</a>
-      </div>
-    </article>
+    </div>
+  </div>
+</section>
 
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">2026 · C# · processamento de sinais</p>
-        <h3>Embaralhamento de fase por FFT</h3>
-        <p>Cifra de imagem no domínio da frequência: a transformada é decomposta em módulo e fase, a fase recebe um deslocamento derivado da senha e o espectro é recomposto. A transformada de Fourier foi escrita do zero.</p>
-        <ul class="det">
-          <li>Chave derivada por hash FNV-1a alimentando um gerador congruencial.</li>
-          <li>Avaliador de integridade, histograma e visualizador de espectro em WinForms.</li>
-        </ul>
-      </div>
-      <div class="pe">
-        <span>C#</span><span>.NET</span><span>FFT</span><span>Criptografia</span><span>WinForms</span>
-        <a href="https://github.com/loock940/optical-phase-scrambling" target="_blank" rel="noopener">repositório ↗</a>
-      </div>
-    </article>
+<!-- ============================ SOBRE ============================ -->
+<section class="sobre" id="sobre">
+  <div class="interface flex">
 
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">2025 · ESP32 e front-end</p>
-        <h3>Controle de videogame servido pelo ESP32</h3>
-        <p>Gamepad virtual em um único arquivo HTML, servido offline pelo próprio ESP32, sem internet e sem biblioteca externa: D-Pad, quatro botões em losango, feedback de toque e layout que vai do desktop ao celular em tela cheia.</p>
-      </div>
-      <div class="pe">
-        <span>ESP32</span><span>HTML</span><span>CSS</span><span>JavaScript</span>
-        <a href="https://github.com/loock940/Game-Controller-Virtual" target="_blank" rel="noopener">repositório ↗</a>
-      </div>
-    </article>
+    <div class="img-sobre">
+      <figure>
+        <img src="img/simposio-2.jpg" alt="Apresentação do dispositivo de tecnologia assistiva no 1º Simpósio de Diversidades em Expressão." width="800" height="600">
+        <figcaption>1º Simpósio de Diversidades em Expressão — apresentação do dispositivo assistivo, dezembro de 2025.</figcaption>
+      </figure>
+    </div>
 
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">1º sem/2025 · iniciação científica</p>
-        <h3>Mamografias com aprendizado de máquina</h3>
-        <p>Implementei o modelo que identifica tumores em exames de mamografia e aponta a região suspeita na imagem. Pesquisa orientada por professor, na linha de computação quântica: fiquei com a abordagem clássica, enquanto outro integrante desenvolveu a versão quântica.</p>
-      </div>
-      <div class="pe">
-        <span>Python</span><span>Aprendizado de máquina</span><span>Visão computacional</span>
-      </div>
-    </article>
+    <div class="txt-sobre">
+      <h2>Muito prazer, sou <span>Gabriel Martins</span></h2>
+      <p>Moro em Itaquera, São Paulo, e curso Engenharia da Computação no Centro Universitário Senac – Santo Amaro, com conclusão prevista para 2029. Antes da faculdade trabalhei um ano no Assaí Atacadista, e foi lá que aprendi a disciplina de processo que hoje aplico na bancada: requisito, montagem, teste, medição e documentação.</p>
+      <p>Gosto do problema que junta os dois lados. No <strong>I.A.R.A.</strong> fui responsável pela arquitetura e pela camada embarcada de um sistema que lê o carro pela porta de diagnóstico e entrega tudo a um painel de gestão. No <strong>RoboCar-Mini</strong> ganhamos a categoria Júnior da competição com um carrinho autônomo. E no que ninguém pediu, como o sistema das câmeras de casa, eu também mexo — porque é assim que se aprende.</p>
 
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">jun/2025 · física aplicada</p>
-        <h3>Foguete experimental "Santos Dumont"</h3>
-        <p>Foguete em MDF e papel com propulsão por garrafa PET pressurizada com água, e base de lançamento remoto acionada pelo celular. Projeto interdisciplinar com Engenharia de Produção, lançado em 14 de junho de 2025.</p>
+      <div class="btn-social">
+        <a href="https://github.com/loock940" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/gabriel-da-silva-martins-00838b275/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5ZM3 9h4v12H3V9Zm7 0h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4V9Z"></path></svg>
+        </a>
+        <a href="mailto:gabriel040876@gmail.com" aria-label="Enviar e-mail">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+        </a>
       </div>
-      <div class="pe">
-        <span>Prototipagem</span><span>Acionamento remoto</span><span>Física aplicada</span>
-      </div>
-    </article>
-
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">projeto pessoal · em casa</p>
-        <h3>Câmeras de casa em um notebook antigo</h3>
-        <p>Um notebook velho estava parado, então escrevi um programa em C que pega as imagens das câmeras do DVR e as transmite, para eu acompanhar as câmeras por ele. Resolveu o problema sem equipamento novo.</p>
-      </div>
-      <div class="pe">
-        <span>C</span><span>DVR</span><span>Vídeo</span><span>Linux</span>
-      </div>
-    </article>
-
-    <article class="proj surge">
-      <div class="corpo" style="padding-top:20px">
-        <p class="meta">2025 · Python e física aplicada</p>
-        <h3>Volume de esferas com propagação de incerteza</h3>
-        <p>Medições com paquímetro para determinar diâmetro e volume, com cálculo e propagação da incerteza experimental, e a análise automatizada em Python com NumPy e Pandas.</p>
-      </div>
-      <div class="pe">
-        <span>Python</span><span>NumPy</span><span>Pandas</span>
-        <a href="https://github.com/loock940/Calculos-do-volume-da-esfera" target="_blank" rel="noopener">repositório ↗</a>
-      </div>
-    </article>
+    </div>
 
   </div>
 </section>
 
-<section id="fotos" class="wrap">
-  <div class="cab surge">
-    <h2>Fotos</h2>
-    <span>Bancada, veículo e apresentações</span>
-  </div>
-  <div class="galeria surge">
-    <figure>
-      <img src="img/simposio-2.jpg" alt="Apresentação do projeto de tecnologia assistiva no simpósio, com slide ao fundo." loading="lazy">
-      <figcaption><b>Simpósio de Diversidades em Expressão</b>Apresentação do dispositivo assistivo, dezembro de 2025.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/tsp-rotas.jpg" alt="Planejamento de rotas com 15 endereços e a rota otimizada no mapa." loading="lazy">
-      <figcaption><b>FleetTSP · roteirização</b>15 endereços reais de São Paulo resolvidos em 96,6 km.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/iara-obd-3000rpm.jpg" alt="Leitura OBD-II ao vivo mostrando 3.088 RPM e 62 graus." loading="lazy">
-      <figcaption><b>I.A.R.A. · validação</b>Leitura a 3.088 RPM comparada ao taquímetro do painel.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/iara-gestor.jpg" alt="Painel do gestor com mapa e cartões de três veículos da frota." loading="lazy">
-      <figcaption><b>I.A.R.A. · painel do gestor</b>Frota em tempo real, com telemetria e emissão por veículo.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/iara-painel.jpg" alt="Painel embarcado do I.A.R.A. com velocímetro, navegação e mapa." loading="lazy">
-      <figcaption><b>I.A.R.A. · painel embarcado</b>Interface em C++ com Qt 6 e QML, presa ao painel do carro.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/iara-fusiveis-peca.jpg" alt="Caixa de relés e fusíveis do veículo com os conectores expostos." loading="lazy">
-      <figcaption><b>I.A.R.A. · alimentação</b>Estudo da caixa de fusíveis antes de decidir de onde tirar os 12 V.</figcaption>
-    </figure>
+<!-- ============================ PORTFÓLIO ============================ -->
+<section class="portfolio" id="projetos">
+  <div class="interface">
+    <h2 class="titulo">Meus <span>projetos</span></h2>
+    <p class="subtitulo">Passe o mouse ou toque em um cartão para ver o que o projeto resolve, a stack e o link do código.</p>
+
+    <div class="portfolio-flex">
+
+      <article class="img-porte" style="background-image:url('img/iara-poi.jpg')" tabindex="0">
+        <div class="capa"><span>2026 · equipe de seis</span><h3>I.A.R.A.</h3></div>
+        <div class="overlay">
+          <h3>I.A.R.A. — telemetria de frota</h3>
+          <p>Lê o veículo pela OBD-II, registra o trajeto, valida a nota de combustível por QR Code e entrega mapa e relatório ao gestor. Reescrevemos a interface em C++ e a latência de voz caiu de 400 ms para 30 ms.</p>
+          <ul class="tags"><li>C++</li><li>Qt 6</li><li>OBD-II</li><li>FlatBuffers</li><li>AWS</li></ul>
+          <div class="links-projeto"><a href="https://github.com/loock940/obd-app-Interface-em-C" target="_blank" rel="noopener">Ver repositório ↗</a></div>
+        </div>
+      </article>
+
+      <article class="img-porte sem-foto" tabindex="0">
+        <div class="capa"><span>2026 · firmware</span><h3>IARA Lite</h3></div>
+        <div class="overlay">
+          <h3>IARA Lite — leitura por CAN</h3>
+          <p>ESP32 na tomada de diagnóstico: lê o motor pelo barramento CAN, manda 20 bytes por segundo ao celular por Bluetooth e dorme com o carro desligado. Proteção contra load dump e terra em estrela no transceiver.</p>
+          <ul class="tags"><li>ESP32</li><li>ESP-IDF</li><li>C</li><li>CAN</li><li>BLE</li></ul>
+        </div>
+      </article>
+
+      <article class="img-porte sem-foto" tabindex="0">
+        <div class="capa"><span>2025 · 1º lugar</span><h3>RoboCar-Mini</h3></div>
+        <div class="overlay">
+          <h3>RoboCar-Mini — autônomo</h3>
+          <p>Venceu a categoria Júnior do RoboCar Race. Dois HC-SR04 comparam os lados, o servo varre de 30° a 90° e o carro vira 90° para o lado livre. O PWM é calibrado diferente em cada motor para o carro não puxar.</p>
+          <ul class="tags"><li>Arduino</li><li>C++</li><li>HC-SR04</li><li>PWM</li></ul>
+          <div class="links-projeto"><a href="https://github.com/loock940/RoboCar-Mini" target="_blank" rel="noopener">Ver repositório ↗</a></div>
+        </div>
+      </article>
+
+      <article class="img-porte" style="background-image:url('img/simposio-1.jpg')" tabindex="0">
+        <div class="capa"><span>dez/2025 · Senac e UNIFESP</span><h3>Tecnologia assistiva</h3></div>
+        <div class="overlay">
+          <h3>Detector de obstáculos</h3>
+          <p>Dispositivo com sensor a laser e retorno tátil para pessoas com deficiência visual, idealizado por André Coutinho. Fiz a parte elétrica: dimensionamento, circuito, montagem e soldagem. Apresentei no simpósio.</p>
+          <ul class="tags"><li>Sensor a laser</li><li>Eletrônica</li><li>Soldagem</li></ul>
+        </div>
+      </article>
+
+      <article class="img-porte" style="background-image:url('img/tsp-rotas.jpg')" tabindex="0">
+        <div class="capa"><span>2026 · otimização</span><h3>FleetTSP</h3></div>
+        <div class="overlay">
+          <h3>FleetTSP — roteirizador</h3>
+          <p>Resolve o caixeiro-viajante com dois motores: vizinho mais próximo e 2-opt no navegador, sem servidor, e OR-Tools com busca local guiada no backend. Teste com 15 endereços reais: 96,6 km em ~161 minutos.</p>
+          <ul class="tags"><li>Python</li><li>Flask</li><li>OR-Tools</li><li>OSRM</li><li>Leaflet</li></ul>
+          <div class="links-projeto"><a href="https://github.com/loock940/Problema-do-Caixeiro-Viajante" target="_blank" rel="noopener">Ver repositório ↗</a></div>
+        </div>
+      </article>
+
+      <article class="img-porte sem-foto" tabindex="0">
+        <div class="capa"><span>2025 · rádio</span><h3>CriptoLuz</h3></div>
+        <div class="overlay">
+          <h3>CriptoLuz — três canais</h3>
+          <p>Dois Raspberry Pi Pico W trocando mensagem por infravermelho, rádio NRF24L01 e Wi-Fi, com o sinal embaralhado por FFT. Firmware em C/C++ no Pico SDK, display ST7789 por SPI e bateria LiPo.</p>
+          <ul class="tags"><li>C/C++</li><li>Pico SDK</li><li>RP2040</li><li>NRF24L01</li><li>FFT</li></ul>
+        </div>
+      </article>
+
+      <article class="img-porte sem-foto" tabindex="0">
+        <div class="capa"><span>2026 · C#</span><h3>Fase por FFT</h3></div>
+        <div class="overlay">
+          <h3>Embaralhamento de fase por FFT</h3>
+          <p>Cifra de imagem no domínio da frequência: decompõe o espectro em módulo e fase, desloca a fase com uma chave derivada da senha e recompõe. Transformada de Fourier escrita do zero, com avaliador de integridade.</p>
+          <ul class="tags"><li>C#</li><li>.NET</li><li>FFT</li><li>Criptografia</li></ul>
+          <div class="links-projeto"><a href="https://github.com/loock940/optical-phase-scrambling" target="_blank" rel="noopener">Ver repositório ↗</a></div>
+        </div>
+      </article>
+
+      <article class="img-porte sem-foto" tabindex="0">
+        <div class="capa"><span>2025 · ESP32 e web</span><h3>Controle virtual</h3></div>
+        <div class="overlay">
+          <h3>Controle de videogame no ESP32</h3>
+          <p>Gamepad em um único arquivo HTML, servido offline pelo próprio ESP32, sem internet e sem biblioteca: D-Pad, quatro botões em losango, feedback de toque e tela cheia no celular.</p>
+          <ul class="tags"><li>ESP32</li><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+          <div class="links-projeto"><a href="https://github.com/loock940/Game-Controller-Virtual" target="_blank" rel="noopener">Ver repositório ↗</a></div>
+        </div>
+      </article>
+
+    </div>
   </div>
 </section>
 
-<section id="competencias" class="wrap">
-  <div class="cab surge">
-    <h2>Competências</h2>
-    <span>Bancada e teclado</span>
-  </div>
-  <dl class="comp surge">
-    <div>
-      <dt>Microcontroladores</dt>
-      <dd><b>ESP32 (ESP-IDF)</b>, Arduino, Raspberry Pi Pico W (RP2040), Raspberry Pi 5</dd>
-    </div>
-    <div>
-      <dt>Linguagens</dt>
-      <dd><b>C</b>, <b>C++</b>, Python, C#, JavaScript, QML, HTML e CSS</dd>
-    </div>
-    <div>
-      <dt>Barramentos e protocolos</dt>
-      <dd><b>CAN</b>, <b>OBD-II (ELM327)</b>, I2C, SPI, UART, PWM, Bluetooth LE, Wi-Fi, rádio NRF24L01, infravermelho</dd>
-    </div>
-    <div>
-      <dt>Eletrônica</dt>
-      <dd>Sensores e atuadores, LEDs, relés, RFID, motores e servos, GPS, display TFT ST7789, bateria LiPo, conversores e proteção de alimentação</dd>
-    </div>
-    <div>
-      <dt>Bancada e documentação</dt>
-      <dd>Protoboard, esquemático elétrico, PCB no Flux.ai, simulação no Wokwi, multímetro, osciloscópio e fonte ajustável, relatórios técnicos em LaTeX, AutoCAD</dd>
-    </div>
-    <div>
-      <dt>Software e nuvem</dt>
-      <dd>Qt 6, FlatBuffers, Flask, Socket.IO, React, AWS (EC2, DynamoDB), Git e GitHub, Linux, NumPy e Pandas</dd>
-    </div>
-  </dl>
-</section>
+<!-- ============================ FORMULÁRIO ============================ -->
+<section class="formulario" id="contato">
+  <div class="interface">
+    <h2 class="titulo">Fale <span>comigo</span></h2>
+    <p class="subtitulo">Disponível para trabalho presencial em São Paulo, de segunda a sábado. Respondo rápido.</p>
 
-<section class="wrap">
-  <div class="cab surge">
-    <h2>Formação e conquistas</h2>
-    <span>Linha do tempo</span>
+    <form id="form-contato">
+      <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+      <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
+      <textarea id="mensagem" name="mensagem" placeholder="Sua mensagem" required></textarea>
+      <button type="submit" class="btn btn-primario">Enviar mensagem</button>
+    </form>
+
+    <p class="aviso">O botão abre seu programa de e-mail com a mensagem pronta. Se preferir, escreva direto para <a href="mailto:gabriel040876@gmail.com">gabriel040876@gmail.com</a> ou ligue para (11) 94821-7476.</p>
   </div>
-  <ul class="tempo surge">
-    <li>
-      <span class="quando">fev/2024 – fev/2029</span>
-      <span><strong>Bacharelado em Engenharia da Computação</strong><em>Centro Universitário Senac – Campus Santo Amaro · cursando o 6º semestre</em></span>
-    </li>
-    <li>
-      <span class="quando">2º sem/2025</span>
-      <span><strong>1º lugar — categoria Júnior do RoboCar Race</strong><em>Competição de robótica do Centro Universitário Senac</em></span>
-    </li>
-    <li>
-      <span class="quando">dez/2025</span>
-      <span><strong>Apresentador no 1º Simpósio de Diversidades em Expressão</strong><em>Projeto de tecnologia assistiva, parceria Senac e UNIFESP</em></span>
-    </li>
-    <li>
-      <span class="quando">2025</span>
-      <span><strong>Treinamento em RPA com Automation Anywhere</strong><em>Em parceria com o Centro Universitário Senac · participante do Geração Senac 2025</em></span>
-    </li>
-    <li>
-      <span class="quando">2019 – 2022</span>
-      <span><strong>Ensino médio completo</strong><em>E.E. Professora Emília de Paiva Meira · São Paulo, SP</em></span>
-    </li>
-  </ul>
 </section>
 
 </main>
 
-<section class="contato">
-  <div class="wrap">
-    <h2 class="surge">Contato</h2>
-    <p class="surge">Disponível para trabalho presencial em São Paulo, de segunda a sábado. Inglês para leitura de documentação técnica e datasheets. CNH categoria B.</p>
-    <div class="links surge">
-      <a class="bt cheio" href="mailto:gabriel040876@gmail.com">gabriel040876@gmail.com</a>
-      <a class="bt" href="tel:+5511948217476">(11) 94821-7476</a>
-      <a class="bt" href="https://github.com/loock940" target="_blank" rel="noopener">GitHub</a>
-      <a class="bt" href="https://www.linkedin.com/in/gabriel-da-silva-martins-00838b275/" target="_blank" rel="noopener">LinkedIn</a>
+<!-- ============================ RODAPÉ ============================ -->
+<footer>
+  <div class="interface">
+    <div class="line-footer">
+      <a href="#inicio" class="logo">gabriel<span>martins</span></a>
+      <div class="btn-social">
+        <a href="https://github.com/loock940" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/gabriel-da-silva-martins-00838b275/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5ZM3 9h4v12H3V9Zm7 0h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4V9Z"></path></svg>
+        </a>
+        <a href="mailto:gabriel040876@gmail.com" aria-label="Enviar e-mail">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+        </a>
+      </div>
     </div>
-    <div class="rodape">
-      <span>Gabriel da Silva Martins · São Paulo, SP</span>
-      <span>Atualizado em setembro de 2026</span>
+
+    <div class="line-footer creditos">
+      <span>Gabriel da Silva Martins · São Paulo, SP · <a href="mailto:gabriel040876@gmail.com">gabriel040876@gmail.com</a></span>
     </div>
   </div>
-</section>
+</footer>
+
+<script>
+  // O formulário não tem servidor: monta o e-mail e abre o programa de e-mail do visitante.
+  document.getElementById('form-contato').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nome = document.getElementById('nome').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var msg = document.getElementById('mensagem').value.trim();
+    var assunto = 'Contato pelo portfólio — ' + nome;
+    var corpo = msg + '\n\n—\n' + nome + '\n' + email;
+    window.location.href = 'mailto:gabriel040876@gmail.com'
+      + '?subject=' + encodeURIComponent(assunto)
+      + '&body=' + encodeURIComponent(corpo);
+  });
+</script>
 
 </body>
 </html>
