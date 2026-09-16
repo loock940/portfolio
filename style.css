@@ -24,6 +24,7 @@
   --interface:1180px;
   --radius:12px;
   --transicao:.25s ease;
+  --foto:clamp(140px,17vw,180px);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -122,11 +123,15 @@ header .interface{display:flex;justify-content:space-between;align-items:center;
 .topo-do-site{padding-block:clamp(48px,7vw,80px);}
 .topo-do-site .flex{align-items:center;gap:clamp(28px,5vw,60px);}
 
-.foto-perfil{flex:0 0 auto;}
+.foto-perfil{flex:0 0 auto;align-self:center;}
 .foto-perfil img{
-  width:clamp(132px,18vw,188px);
-  aspect-ratio:1/1;
+  width:var(--foto);
+  height:var(--foto);
+  min-width:var(--foto);
+  min-height:var(--foto);
+  max-width:none;
   object-fit:cover;
+  object-position:50% 35%;
   border-radius:50%;
   border:1px solid var(--border-color);
 }
@@ -196,6 +201,19 @@ header .interface{display:flex;justify-content:space-between;align-items:center;
 @media (hover:hover) and (pointer:fine){
   .btn-social a:hover{color:var(--accent-color);border-color:var(--accent-color);box-shadow:0 0 14px -2px var(--accent-glow);}
 }
+
+/* TECNOLOGIAS */
+
+.tecnologias-lista{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 32px;}
+.tecnologias-lista dt{
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-color);margin-bottom:10px;
+}
+.tecnologias-lista ul{display:flex;flex-wrap:wrap;gap:6px;}
+.tecnologias-lista li{
+  font-size:12.5px;padding:5px 11px;border-radius:6px;
+  background-color:var(--bg-input);border:1px solid var(--border-color);color:var(--text-muted);
+}
+.tecnologias-lista li.forte{color:var(--text-main);border-color:#3d4854;}
 
 /* PROJETOS — um bloco por projeto, imagem de um lado e descrição do outro */
 
